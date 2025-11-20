@@ -1,0 +1,113 @@
+/* Login.css – Simple, Clean, Matches Navbar & Navbar Perfectly */
+
+.login-page {
+  min-height: 100vh;
+  background: #fffbfb;
+  padding: 20px 20px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.login-container {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 35px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container h2 {
+  color: #d4380d;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+/* Input with icon inside */
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 16px 16px 16px 45px;  /* space for icon */
+  border: 1px solid #ffb399;
+  border-radius: 10px;
+  font-size: 16px;
+  background: white;
+}
+
+.input-group input::placeholder {
+  color: #aaa;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #d4380d;
+  box-shadow: 0 0 0 3px rgba(212, 56, 13, 0.15);
+}
+
+.input-group .icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d4380d;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* Login Button */
+.login-container button {
+  width: 100%;
+  padding:  16px;
+  background-color: #d4380d;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.login-container button:hover {
+  background-color: #c22d00;
+}
+
+/* Sign up link */
+.login-container p {
+  margin-top: 25px;
+  color: #666;
+  font-size: 15px;
+}
+
+.login-container span {
+  color: #d4380d;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-container span:hover {
+  text-decoration: underline;
+}
+@media (max-width: 992px) {
+  .login-page {
+    padding: 100px 20px 28px;
+  }
+}
+/* Mobile friendly */
+@media (max-width: 480px) {
+    .login-page{
+    padding: 100px 10px 20px;
+    }
+  .login-container {
+    padding: 35px 25px;
+    margin: 0 15px;
+  }
+}
