@@ -1,0 +1,284 @@
+/* src/pages/Cart.css → ULTRA CLEAN SCANDINAVIAN 2025 */
+
+.clean-cart {
+  min-height: 100vh;
+  background: #fafafa;
+  padding: 90px 20px 130px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.no-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #666;
+}
+
+.cart-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding: 0 4px;
+}
+
+.cart-top h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.items-count {
+  background: #222;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+/* Each Item Line */
+.item-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item-text h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 4px 0;
+}
+
+.unit-price {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Tiny Clean + / - */
+.qty {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1.4px solid #111;
+  border-radius: 20px;
+  padding: 4px 10px;
+  gap: 12px;
+}
+
+.qty button {
+  background: none;
+  border: none;
+  color: #111;
+  font-size: 1.1rem;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.qty button:active {
+  background: #111;
+  color: white;
+}
+
+.qty span {
+  font-weight: 700;
+  font-size: 1rem;
+  min-width: 20px;
+  text-align: center;
+}
+
+.line-total {
+  font-weight: 700;
+  color: #d4380d;
+  font-size: 1.1rem;
+  min-width: 70px;
+  text-align: right;
+}
+
+.del {
+  color: #999;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* Fixed Bottom */
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 20px;
+  border-top: 1px solid #eee;
+  box-shadow: 0 -8px 30px rgba(0,0,0,0.08);
+}
+
+.bill {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.bill > div { width: 50%; }
+.numbers { text-align: right; }
+
+.final {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #d4380d;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 18px;
+  background: #d4380d;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Empty & Responsive */
+.no-items {
+  text-align: center;
+  padding: 140px 20px 200px;
+  color: #666;
+}
+
+.shop-now {
+  margin-top: 20px;
+  padding: 14px 36px;
+  background: #d4380d;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+/* Tablet+ */
+@media (min-width: 640px) {
+  .clean-cart { padding: 100px 10% 140px; }
+  .item-text h3 { font-size: 1.25rem; }
+  .line-total { font-size: 1.25rem; }
+  .pay-btn { font-size: 1.4rem; }
+}
+
+
+/* Floating Mini Bar — Always Visible */
+.floating-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  border-top: 1px solid #eee;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.bar-left strong {
+  font-size: 1.25rem;
+  color: #d4380d;
+  font-weight: 800;
+}
+
+.bar-left p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 2px 0 0;
+}
+
+.pay-float-btn {
+  background: #d4380d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Slide-up Bill Sheet */
+.bill-sheet {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.sheet-handle {
+  width: 40px;
+  height: 5px;
+  background: #ddd;
+  border-radius: 3px;
+  margin: 12px auto;
+}
+
+.sheet-content {
+  padding: 0 20px 30px;
+}
+
+.sheet-content h3 {
+  text-align: center;
+  font-size: 1.4rem;
+  margin: 10px 0 20px;
+  color: #d4380d;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0 10px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #d4380d;
+}
+
+.pay-full-btn {
+  width: 100%;
+  padding: 16px;
+  background: #d4380d;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 10px;
+}

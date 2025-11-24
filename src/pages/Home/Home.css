@@ -1,0 +1,207 @@
+/* src/pages/Home.css */
+.home-page {
+  min-height: 100vh;
+  background: #fffbfb;
+  padding-top: 80px;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #ffe0d3, #fff5f0);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #d4380d;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.search-bar {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 18px 50px;
+  border: 2px solid #ffb399;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  background: white;
+}
+
+.search-bar .icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d4380d;
+  font-size: 1.4rem;
+}
+
+.menu-container {
+  padding: 50px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-title {
+  text-align: center;
+  color: #d4380d;
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.food-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(212, 56, 13, 0.12);
+  transition: all 0.3s ease;
+}
+
+.food-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(212, 56, 13, 0.2);
+}
+
+.food-img {
+  height: 200px;
+  background: #ffe0d3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #d4380d;
+  font-weight: bold;
+}
+.food-img img{
+  width: 100%;
+  height: 100%;
+  
+}
+.food-info {
+  padding: 20px;
+}
+
+.food-info h3 {
+  margin: 0 0 8px;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.category {
+  color: #d4380d;
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.price-add {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #d4380d;
+}
+
+.add-btn {
+  background: #d4380d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+
+.add-btn:hover {
+  background: #c22d00;
+  transform: scale(1.05);
+}
+/* Add this to your existing Home.css or replace */
+
+.qty-control {
+  display: flex;
+  align-items: center;
+  background: #d4380d;
+  color: white;
+  border-radius: 50px;
+  padding: 6px 10px;
+  gap: 12px;
+  font-weight: bold;
+  min-width: 110px;
+  justify-content: center;
+}
+
+.qty-control button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.qty-control button:active {
+  background: rgba(255,255,255,0.3);
+}
+
+.qty-num {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+/* Make Add button green when added */
+.added .add-btn {
+  background: #28a745 !important;
+}
+
+.added .add-btn::before {
+  content: "Added ";
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .price-add {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .price {
+    font-size: 1.3rem !important;
+  }
+  .qty-control, .add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

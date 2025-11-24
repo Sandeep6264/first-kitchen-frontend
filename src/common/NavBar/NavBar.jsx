@@ -1,55 +1,82 @@
-import React, { useState } from 'react';
+// src/common/NavBar/NavBar.jsx
+import React, { useState, useEffect } from 'react';
 import './NavBar.css';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FiShoppingCart, FiTag, FiPackage, FiHome } from 'react-icons/fi';
+import { useAuth } from '../../context/AuthContext';
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const { ...context } = useAuth();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  // Close mobile menu automatically when switching to desktop screen
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
-      {/* Main Navbar */}
       <nav className="navbar">
-        {/* Logo */}
         <div className="logo">
           <h1>First Kitchen</h1>
         </div>
 
-        {/* Desktop Search */}
-        <div className="desktopSearch">
-          <input type="text" placeholder="Search items..." />
-        </div>
-
-        {/* Desktop Buttons */}
+        {/* Desktop Menu */}
         <div className="desktopMenu">
-          <button>Home</button>
-          <button>Login</button>
-          <button className="signup">Sign Up</button>
+          <NavLink to="/"><button><FiHome /> Home</button></NavLink>
+          <NavLink to="/offers"><button><FiTag /> Offers</button></NavLink>
+          <NavLink to="/myorders"><button><FiPackage /> My Orders</button></NavLink>
+
+          <NavLink to="/login"><button>Login</button></NavLink>
+          <NavLink to="/signup">
+            <button className="signup">Sign Up</button>
+          </NavLink>
+
+          <div className="cart-wrapper" onClick={() => navigate('/cart')}>
+            <FiShoppingCart className="cart-icon" />
+            {context.cart.length > 0 && (
+              <span className="cart-badge">{context.cart.length}</span>
+            )}
+          </div>
         </div>
 
-        {/* Hamburger Icon - Mobile Only */}
-        <button
-          className="hamburger"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-          aria-expanded={isOpen}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
+        {/* Mobile Hamburger */}
+        <button className="hamburger" onClick={toggleMenu}>
+          <span></span><span></span><span></span>
         </button>
 
-        {/* Mobile Dropdown Menu */}
-        <div className={`mobileMenu ${isOpen ? 'open' : ''}`}>
-          <button onClick={toggleMenu}>Home</button>
-          <button onClick={toggleMenu}>Login</button>
-          <button onClick={toggleMenu} className="signup">
-            Sign Up
-          </button>
+        {/* Mobile Menu */}
+        <div className={`mobileMenu ${isOpen ? 'open' : 'closed'}`}>
+          <NavLink to="/" onClick={toggleMenu}><button><FiHome /> Home</button></NavLink>
+          <NavLink to="/offers" onClick={toggleMenu}><button><FiTag /> Offers</button></NavLink>
+          <NavLink to="/myorders" onClick={toggleMenu}><button><FiPackage /> My Orders</button></NavLink>
+
+          <NavLink to="/login" onClick={toggleMenu}><button>Login</button></NavLink>
+          <NavLink to="/signup" onClick={toggleMenu}><button >Sign Up</button></NavLink>
+          <NavLink to="/cart" onClick={toggleMenu} state={{
+            textDecoration: 'none'
+          }}>
+            <button className="cart-button mobile-cart-btn" style={{textDecoration:"none"}} >
+              <FiShoppingCart className="cart-icon" />
+              {context.cart.length > 0 && (
+                <span className="cart-badge">{context.cart.length} </span>
+              )}
+              Cart
+            </button>
+          </NavLink>
         </div>
       </nav>
 
-      {/* Mobile Full-Width Search Bar (below navbar) */}
       <div className="mobileSearchBar">
         <input type="text" placeholder="Search items..." />
       </div>
@@ -58,3 +85,4 @@ function NavBar() {
 }
 
 export default NavBar;
+// button
