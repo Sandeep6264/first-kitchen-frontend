@@ -11,7 +11,8 @@
 
 body {
   font-family: 'Segoe UI', system-ui, -apple-system-ui, sans-serif;
-  padding-top: 64px; /* Space for fixed navbar + mobile search */
+  padding-top: 64px;
+  /* Space for fixed navbar + mobile search */
   background-color: #fafafa;
 }
 
@@ -71,6 +72,27 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.cart-button {
+  text-decoration: none;
+  border: none;
+}
+
+.cart-button button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  padding: 8px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: background 0.3s;
+  text-decoration: none;
 }
 
 .desktopMenu button {
@@ -135,7 +157,7 @@ body {
   overflow: hidden;
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
   border-top: 1px solid #fce8e1;
 }
 
@@ -145,8 +167,14 @@ body {
   padding: 1.2rem 0;
 }
 
+.mobileMenu.closed {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
+}
+
 .mobileMenu button {
-  width: 88%;
+  width: 100%;
   padding: 1rem;
   font-size: 1.15rem;
   font-weight: 500;
@@ -160,6 +188,7 @@ body {
 
 .mobileMenu button:hover {
   background-color: #fff8f5;
+  border: none;
 }
 
 .mobileMenu .signup {
@@ -241,4 +270,55 @@ body {
     padding: 0.85rem 1rem;
     font-size: 1rem;
   }
+}
+
+/* CART BADGE - Desktop & Mobile */
+.cart-wrapper {
+  position: relative;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.cart-wrapper:hover {
+  background: #fff0e8;
+  
+}
+
+.cart-icon {
+  font-size: 1.6rem;
+  color: #d4380d;
+}
+
+.cart-badge,
+.mobile-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #d4380d;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 8px rgba(212, 56, 13, 0.4);
+}
+
+
+
+.mobile-badge {
+  font-size: 0.8rem;
+  min-width: 24px;
+  height: 24px;
+}
+.cart-button{
+   gap: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
