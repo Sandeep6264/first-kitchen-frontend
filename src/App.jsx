@@ -12,7 +12,9 @@ import MyOrders from './pages/MyOrders/MyOrders';
 import LiveTracking from './pages/LiveTracking/LiveTracking';
 import { useAuth } from './context/AuthContext';
 import Loader from './common/Loader/Loader';
-
+import Checkout from './pages/Checkout/Checkout';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Define your routes here (outside component)
 const router = [
   {
@@ -32,6 +34,7 @@ const router = [
       { path: "/cart", element: <Cart /> },
       { path: "/myorders", element: <MyOrders /> },
       { path: "/offers", element: <Offers /> },
+      {path : "/checkout",element:<Checkout />},
       { path: "/restaurant/:id", element: <RestaurantDetail /> },
       { path: "/livetracking", element: <LiveTracking /> },
       { path: "*", element: <Home /> } // redirect unknown to home
@@ -57,6 +60,7 @@ function Layout() {
           )}
         </Routes>
       </main>
+       <ToastContainer newestOnTop />
     </>
   );
 }

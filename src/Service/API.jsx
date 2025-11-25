@@ -24,6 +24,9 @@ const API = {
     deleteItem: async (id) => {
         return axiosInstance.delete(`/item/deleteItem`);
     },
+    placeOrder: async (orderData) => {
+        return axiosInstance.post('/order/placeOrder', orderData);
+    }
 }
 
 export default API;

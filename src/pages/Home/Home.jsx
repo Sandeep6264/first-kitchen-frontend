@@ -34,6 +34,7 @@ const Home = () => {
     }
   };
   useEffect(() => {
+    if(context.items.length === 0)
     fetchItemData();
   }, []);
 
@@ -66,7 +67,7 @@ const Home = () => {
 
   const getQty = (id) => {
     const item = context.cart.find(i => i.itemId === id);
-    console.log('Getting qty for itemId:', id, 'Found item:', item);
+    // console.log('Getting qty for itemId:', id, 'Found item:', item);
     return item ? item.qty : 0;
   }
 
