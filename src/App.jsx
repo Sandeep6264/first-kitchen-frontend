@@ -15,6 +15,7 @@ import Loader from './common/Loader/Loader';
 import Checkout from './pages/Checkout/Checkout';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthGuard from './AuthGuard';
 // Define your routes here (outside component)
 const router = [
   {
@@ -30,13 +31,13 @@ const router = [
     // Add authenticated routes here
     name: "Authenticated",
     routes: [
-      { path: "/", element: <Home /> },
-      { path: "/cart", element: <Cart /> },
-      { path: "/myorders", element: <MyOrders /> },
-      { path: "/offers", element: <Offers /> },
-      {path : "/checkout",element:<Checkout />},
-      { path: "/restaurant/:id", element: <RestaurantDetail /> },
-      { path: "/livetracking", element: <LiveTracking /> },
+      { path: "/home", element: <AuthGuard><Home/></AuthGuard> },
+      { path: "/cart", element: <AuthGuard><Cart /></AuthGuard> },
+      { path: "/myorders", element: <AuthGuard><MyOrders /></AuthGuard> },
+      { path: "/offers", element: <AuthGuard><Offers /></AuthGuard> },
+      { path: "/checkout", element: <AuthGuard><Checkout /></AuthGuard> },
+      { path: "/restaurant/:id", element: <AuthGuard><RestaurantDetail /></AuthGuard> },
+      { path: "/livetracking", element: <AuthGuard><LiveTracking /></AuthGuard> },
       { path: "*", element: <Home /> } // redirect unknown to home
 
     ]
@@ -60,7 +61,7 @@ function Layout() {
           )}
         </Routes>
       </main>
-       <ToastContainer newestOnTop />
+      <ToastContainer newestOnTop />
     </>
   );
 }

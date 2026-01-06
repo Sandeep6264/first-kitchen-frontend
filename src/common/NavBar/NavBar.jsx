@@ -33,7 +33,7 @@ function NavBar() {
 
         {/* Desktop Menu */}
         <div className="desktopMenu">
-          <NavLink to="/"><button><FiHome /> Home</button></NavLink>
+          <NavLink to="/home"><button><FiHome /> Home</button></NavLink>
           <NavLink to="/offers"><button><FiTag /> Offers</button></NavLink>
           <NavLink to="/myorders"><button><FiPackage /> My Orders</button></NavLink>
 
@@ -57,7 +57,7 @@ function NavBar() {
 
         {/* Mobile Menu */}
         <div className={`mobileMenu ${isOpen ? 'open' : 'closed'}`}>
-          <NavLink to="/" onClick={toggleMenu}><button><FiHome /> Home</button></NavLink>
+          <NavLink to="/home" onClick={toggleMenu}><button><FiHome /> Home</button></NavLink>
           <NavLink to="/offers" onClick={toggleMenu}><button><FiTag /> Offers</button></NavLink>
           <NavLink to="/myorders" onClick={toggleMenu}><button><FiPackage /> My Orders</button></NavLink>
 
@@ -66,7 +66,7 @@ function NavBar() {
           <NavLink to="/cart" onClick={toggleMenu} state={{
             textDecoration: 'none'
           }}>
-            <button className="cart-button mobile-cart-btn" style={{textDecoration:"none"}} >
+            <button className="cart-button mobile-cart-btn" style={{ textDecoration: "none" }} >
               <FiShoppingCart className="cart-icon" />
               {context.cart.length > 0 && (
                 <span className="cart-badge">{context.cart.length} </span>
