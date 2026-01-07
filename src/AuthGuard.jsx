@@ -1,22 +1,25 @@
 // components/AuthGuard.jsx
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "./context/AuthContext";
 
-/* ---------- Auth reader (defensive) ---------- */
 const getAuthState = () => {
+    const { ...context } = useAuth();
     try {
-        const token = localStorage.getItem("token");
-        const rawUser = localStorage.getItem("user");
+        const token = context.userToken;
+        const rawUser = context.userRole;
+        console.log("AuthGuard - Retrieved token and userRole from context:", token, rawUser);
 
         let roles = [];
 
         if (rawUser) {
-            const parsed = JSON.parse(rawUser);
-
+            console.log("Raw user data:", rawUser);
+            // const parsed = JSON.parse(rawUser);
+            // console.log("Parsed user roles:", parsed);
             // Support both: ["ROLE_USER"] and { roles: [...] }
-            if (Array.isArray(parsed)) {
-                roles = parsed;
-            } else if (Array.isArray(parsed.roles)) {
-                roles = parsed.roles;
+            if (Array.isArray(rawUser)) {
+                roles = rawUser;
+            } else if (Array.isArray(rawUser.roles)) {
+                roles = rawUser.roles;
             }
         }
 
@@ -56,22 +59,21 @@ const isAdminRoute = (path) =>
 const AuthGuard = ({ children }) => {
     const { pathname } = useLocation();
     const { isAuthenticated, roles } = getAuthState();
+    const navigate = useNavigate();
 
     const isUser = roles.includes("ROLE_USER");
     const isAdmin = roles.includes("ROLE_ADMIN");
+    console.log("AuthGuard - isUser:", isUser, "isAdmin:", isAdmin, "isAuthenticated:", isAuthenticated, "pathname:", pathname);
 
-    /* 1️⃣ Public routes */
+
     if (PUBLIC_ROUTES.includes(pathname)) {
         return children;
     }
 
-    /* 2️⃣ Not logged in */
+
     if (!isAuthenticated) {
         return (
-            <Navigate
-                to={`/login?redirect=${encodeURIComponent(pathname)}`}
-                replace
-            />
+            <Navigate to="/login" replace state={{ from: pathname }} />
         );
     }
 

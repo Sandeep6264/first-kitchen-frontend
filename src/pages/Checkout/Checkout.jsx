@@ -51,7 +51,7 @@ const Checkout = () => {
         setCart([]);
         localStorage.removeItem('firstKitchenCart');
         setShowSuccess(true);
-        setTimeout(() => navigate('/'), 2000);
+        setTimeout(() => navigate('/home'), 2000);
       } else {
         alert('Failed to place order. Please try again.');
       }

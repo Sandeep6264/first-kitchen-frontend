@@ -16,7 +16,7 @@ const Cart = () => {
     setitemCount(cart.length);
   }, [cart, setitemCount]);
 
-  // Update quantity
+  
   const update = (id, delta) => {
     const updated = cart
       .map(item => item.itemId === id ? { ...item, qty: item.qty + delta } : item)
@@ -47,7 +47,7 @@ const Cart = () => {
     return (
       <div className="no-cart">
         <h2>Your cart is empty</h2>
-        <button onClick={() => navigate('/')} className="shop-now">
+        <button onClick={() => navigate('/home')} className="shop-now">
           Explore Menu
         </button>
       </div>

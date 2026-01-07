@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { use } from 'react';
 import './Login.css';
 import { FaUser, FaLock } from "react-icons/fa";
-import API from '../../Service/API';
+import API, { setAuthToken } from '../../Service/API';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router';
 
 function Login() {
+  const { ...context } = useAuth();
+  const naviaget = useNavigate();
   const [userData, setUserData] = React.useState({
     userName: '',
     password: ''
@@ -22,22 +26,29 @@ function Login() {
       return;
     }
     try {
-
-      console.log("Login data submitted:", userData);
+      context.setloader(true);
       const response = await API.Login(userData);
       const { ...result } = response.data;
       if (result && result.responseStatus == "S" && result.responseCode == 200) {
         toast.success("Login successful!");
-        localStorage.setItem("token", result.responseContent.accessToken);
-        localStorage.setItem("user", JSON.stringify(result.responseContent.accessRole));
-        window.location.href = "/firstKitchen/home";
+        context.setUserRole(result.responseContent.accessRole);
+        context.setUserToken(result.responseContent.accessToken);
+        context.setuserId(result.responseContent.userId);
+        context.setuserEmail(result.responseContent.email);
+        setAuthToken(result.responseContent.accessToken);
+        context.setIsLoggedIn(true);
+        naviaget('/home', { replace: true });
 
       } else {
         toast.error(result.responseMessage || "Login failed. Please try again.");
       }
     } catch (error) {
-      console.error("Login error:", error);
-      alert("Login failed. Please try again.");
+      // console.error("Login error:", error);
+      console.log("Login error response:", error.response);
+      // toast.error("An error occurred during login. Please try again.");
+      toast.error(error.response?.data?.responseMessage || "An error occurred during login. Please try again.");
+    } finally {
+      context.setloader(false);
     }
 
   }
@@ -63,6 +74,7 @@ function Login() {
 
         <p>Don't have an account? <span>Sign Up</span></p>
       </div>
+
     </div>
   );
 }
