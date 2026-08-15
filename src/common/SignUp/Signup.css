@@ -101,3 +101,30 @@
     gap: 15px;
   }
 }
+
+/* Make inputs look premium when focused */
+.input-row input:focus {
+  border-color: #d4380d;
+  box-shadow: 0 0 0 4px rgba(212, 56, 13, 0.15);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+/* Button hover effect */
+button:hover {
+  background: linear-gradient(135deg, #c22d00, #e55a2b);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(212, 56, 13, 0.35);
+}
+/* button {
+  color: white;
+  font-weight: 600;
+} */
+ .login-link span {
+  color: #d4380d;
+  font-weight: 700;
+  cursor: pointer;
+}
+.login-link span:hover {
+  text-decoration: underline;
+}

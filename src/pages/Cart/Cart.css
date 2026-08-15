@@ -1,0 +1,246 @@
+/* src/pages/Cart.css → FINAL 2025 — Floating bar appears only at bottom */
+.clean-cart {
+  min-height: 100vh;
+  background: #fafafa;
+  padding: 90px 20px 160px;   /* Extra space so nothing is hidden */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.no-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #666;
+  text-align: center;
+}
+
+.cart-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding: 0 4px;
+}
+
+.cart-top h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.cart-count {
+  background: #d4380d;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+/* Items */
+.item-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item-text h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 4px 0;
+}
+
+.unit-price {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1.4px solid #111;
+  border-radius: 20px;
+  padding: 4px 10px;
+  gap: 12px;
+}
+
+.qty button {
+  background: none;
+  border: none;
+  color: #111;
+  font-size: 1.1rem;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.qty button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.qty button:active {
+  background: #111;
+  color: white;
+}
+
+.qty span {
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
+.line-total {
+  font-weight: 700;
+  color: #d4380d;
+  font-size: 1.1rem;
+  min-width: 70px;
+  text-align: right;
+}
+
+.del {
+  color: #999;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* Floating Bar — Hidden by default, slides up near bottom */
+.floating-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: white;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 -6px 30px rgba(0,0,0,0.15);
+  border-top: 1px solid #eee;
+  z-index: 999;
+  cursor: pointer;
+
+  /* Hidden initially */
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.floating-bar.visible {
+  transform: translateY(0);
+}
+
+.bar-left strong {
+  font-size: 1.3rem;
+  color: #d4380d;
+  font-weight: 800;
+}
+
+.bar-left p {
+  font-size: 0.88rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+.pay-float-btn {
+  background: #d4380d;
+  color: white;
+  border: none;
+  padding: 13px 28px;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+/* Bill Sheet */
+.bill-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.bill-sheet {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+  z-index: 1001;
+}
+
+.sheet-handle {
+  width: 40px;
+  height: 5px;
+  background: #ddd;
+  border-radius: 3px;
+  margin: 12px auto;
+}
+
+.sheet-content {
+  padding: 0 24px 40px;
+}
+
+.sheet-content h3 {
+  text-align: center;
+  font-size: 1.4rem;
+  margin: 10px 0 20px;
+  color: #d4380d;
+  font-weight: 700;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-total {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 0 16px;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #d4380d;
+}
+
+.pay-full-btn {
+  width: 100%;
+  padding: 18px;
+  background: #d4380d;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.shop-now {
+  margin-top: 20px;
+  padding: 14px 36px;
+  background: #d4380d;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
