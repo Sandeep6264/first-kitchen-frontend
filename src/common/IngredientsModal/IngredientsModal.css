@@ -1,0 +1,486 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(212, 56, 13, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 25px 50px rgba(212, 56, 13, 0.2);
+    border: 1px solid rgba(212, 56, 13, 0.1);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(60px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 10px;
+    background: white;
+    border: 2px solid #ffe0d3;
+    font-size: 22px;
+    cursor: pointer;
+    color: #d4380d;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(212, 56, 13, 0.1);
+}
+
+.modal-close-btn:hover {
+    background: #fff5f0;
+    border-color: #d4380d;
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 56, 13, 0.2);
+}
+
+.modal-header {
+    padding: 0;
+    border-radius: 24px 24px 0 0;
+    overflow: hidden;
+}
+
+.food-hero {
+    position: relative;
+    width: 100%;
+    height: 260px;
+}
+
+.food-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* badges (category & price) */
+.food-badge {
+    position: absolute;
+    top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    backdrop-filter: blur(6px);
+}
+
+.food-badge.category {
+    left: 14px;
+}
+
+.food-badge.price {
+    right: 14px;
+}
+.food-badge:hover {
+    background: #d4380d;
+    cursor: pointer;
+}
+
+/* name overlay at bottom */
+.food-name {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.75),
+            rgba(0, 0, 0, 0));
+}
+
+
+.modal-body {
+    padding: 28px;
+}
+
+.ingredients-title {
+    color: #333;
+    margin: 0 0 20px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ingredients-title::before {
+    content: "";
+    display: block;
+    width: 4px;
+    height: 24px;
+    background: #d4380d;
+    border-radius: 2px;
+}
+
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.ingredient-item {
+    padding: 14px 18px;
+    background: #fffbfb;
+    border-radius: 12px;
+    border: 1px solid #ffe0d3;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ingredient-item:hover {
+    background: #fff5f0;
+    transform: translateX(8px);
+    border-color: #ffb399;
+    box-shadow: 0 4px 15px rgba(212, 56, 13, 0.08);
+}
+
+.ingredient-item::before {
+    content: "•";
+    color: #d4380d;
+    font-size: 1.5rem;
+    font-weight: bold;
+    min-width: 20px;
+}
+
+.ingredient-name {
+    font-weight: 500;
+    color: #444;
+    font-size: 1rem;
+    flex: 1;
+}
+
+.no-ingredients {
+    color: #999;
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+    background: #fffbfb;
+    border-radius: 12px;
+    border: 2px dashed #ffe0d3;
+    margin: 20px 0;
+}
+
+.food-description {
+    margin-top: 28px;
+    padding: 20px;
+    background: linear-gradient(135deg, #fffbfb 0%, #fff5f0 100%);
+    border-radius: 16px;
+    border-left: 4px solid #d4380d;
+}
+
+.food-description h4 {
+    color: #333;
+    margin: 0 0 12px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.food-description h4::before {
+    content: "📝";
+    font-size: 1.1rem;
+}
+
+.food-description p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.modal-footer {
+    padding: 24px 28px;
+    border-top: 2px solid #ffe0d3;
+    display: flex;
+    justify-content: center;
+    background: #fffbfb;
+    border-radius: 0 0 24px 24px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #d4380d 0%, #c22d00 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 25px rgba(212, 56, 13, 0.25);
+    letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(212, 56, 13, 0.35);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+}
+
+.modal-qty-control {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: white;
+    padding: 12px 28px;
+    border-radius: 30px;
+    box-shadow: 0 8px 25px rgba(212, 56, 13, 0.15);
+    border: 1px solid #ffe0d3;
+}
+
+.modal-qty-control button {
+    background: #fff5f0;
+    border: 2px solid #ffe0d3;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #d4380d;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.modal-qty-control button:hover {
+    background: #ffe0d3;
+    border-color: #d4380d;
+    transform: scale(1.1);
+}
+
+.modal-qty-num {
+    font-weight: 800;
+    color: #d4380d;
+    font-size: 1.2rem;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Scrollbar Styling */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #fff5f0;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #ffb399;
+    border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #d4380d;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .modal-content {
+        max-width: 92%;
+        margin: 0 auto;
+        border-radius: 20px;
+    }
+
+    .modal-header {
+        padding: 24px 20px 20px;
+    }
+
+    .modal-food-img-container {
+        width: 140px;
+        height: 140px;
+    }
+
+    .modal-food-title {
+        font-size: 1.5rem;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .btn-primary {
+        padding: 14px 30px;
+        font-size: 1rem;
+    }
+
+    .modal-qty-control {
+        padding: 10px 20px;
+        gap: 15px;
+    }
+
+    .modal-qty-control button {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .modal-content {
+        max-height: 90vh;
+    }
+
+    .modal-food-img-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .modal-food-title {
+        font-size: 1.3rem;
+    }
+
+    .modal-food-price {
+        font-size: 1.5rem;
+    }
+
+    .ingredient-item {
+        padding: 12px 16px;
+    }
+}
+
+/* Loading Animation */
+.modal-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.modal-loading::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ffe0d3;
+    border-top-color: #d4380d;
+    border-radius: 50%;
+    animation: loadingSpin 1s linear infinite;
+}
+
+@keyframes loadingSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Add to src/components/IngredientsModal.css */
+
+.food-details {
+    margin-top: 24px;
+    padding: 16px;
+    background: linear-gradient(135deg, #fffbfb 0%, #fff5f0 100%);
+    border-radius: 12px;
+    border: 1px solid #ffe0d3;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #ffb399;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    font-weight: 500;
+    color: #d4380d;
+    font-size: 0.95rem;
+}
+
+/* Make the "Coming soon" message more attractive */
+.no-ingredients {
+    background: linear-gradient(135deg, #fffbfb 0%, #fff5f0 100%);
+    border: 2px dashed #d4380d;
+    color: #d4380d;
+    padding: 24px;
+    text-align: center;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.no-ingredients span[role="img"] {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}

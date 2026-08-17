@@ -1,7 +1,7 @@
 // src/pages/Checkout.jsx → 100% WORKING – NO [object Object]
 import React, { useState } from 'react';
 import './Checkout.css';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FiMapPin, FiCreditCard, FiPhone } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import API from '../../Service/API';
@@ -110,7 +110,8 @@ const Checkout = () => {
         <label className={`payment-option ${paymentMethod === 'online' ? 'active' : ''}`}>
           <input type="radio" name="pay" checked={paymentMethod === 'online'}
             onChange={() => setPaymentMethod('online')} />
-          <FiPhone /> <span>UPI / Cards / Wallet</span>
+          <FiPhone /> <NavLink to="/payment" style={{ textDecoration: 'none', color: 'inherit' }}><span>UPI / Cards / Wallet</span></NavLink>
+          {/* <strong>₹{total}</strong> */}
         </label>
       </div>
 
@@ -121,7 +122,13 @@ const Checkout = () => {
         <div className="price-total"><strong>To Pay</strong><strong>₹{total}</strong></div>
       </div>
 
-      <button className="place-order-btn" onClick={placeOrder}>
+      <button className="place-order-btn" onClick={() => {
+        if (paymentMethod === 'cod') {
+          placeOrder();
+        } else {
+          navigate('/payment', { state: { fromCheckout: true, orderTotal: total } });
+        }
+      }}>
         {paymentMethod === 'cod' ? `Place Order • ₹${total}` : `Pay Online • ₹${total}`}
       </button>
     </div>

@@ -3,6 +3,7 @@ import './Signup.css';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../context/AuthContext';
 import API from '../../Service/API';
+import { NavLink } from 'react-router';
 
 const Signup = () => {
   /* Signup form state and handlers can be added here */
@@ -84,7 +85,7 @@ const Signup = () => {
             <input type="password" name="password" value={signupData.password} onChange={handleChange} placeholder="Password" required />
             <input type="password" name="confirmPassword" style={{ border: notMatching.current && "1px solid red" }} value={signupData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" required />
           </div>
-          <div className="input-row">
+          <div className="input-row" >
             <select name="gender" value={signupData.gender} onChange={handleChange} required >
               <option value="" disabled >Select Gender</option>
               <option value="male" >Male</option>
@@ -96,12 +97,11 @@ const Signup = () => {
           <button type="submit" onClick={handleSubmit} >Sign Up</button>
         </form>
 
-        <p className="login-link">
-          Already have an account? <span>Login</span>
-        </p>
+
+        <p>Already have an account? <NavLink to="/login" style={{ textDecoration: "none" }}> <span>Login</span></NavLink></p>
       </div>
     </div >
   );
-};
+}
 
 export default Signup;
