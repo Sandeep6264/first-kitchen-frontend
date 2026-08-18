@@ -6,15 +6,12 @@ const axiosInstance = axios.create({
     baseURL: baseURL,
     headers: { 'Content-Type': 'application/json' },
 });
-let authToken = null;
-export const setAuthToken = (token) => {
-    authToken = token;
-}
+let authToken = sessionStorage.getItem("userToken") || null;
+
 axiosInstance.interceptors.request.use(
     (config) => {
         if (authToken) {
             config.headers['Authorization'] = `Bearer ${authToken}`;
-            console.log("Added Authorization header to request:", config.headers['Authorization']);
         }
         return config;
     },
@@ -54,6 +51,18 @@ const API = {
     },
     placeOrder: async (orderData) => {
         return axiosInstance.post('/api/order/placeOrder', orderData);
+    },
+    getMyOrders: async () => {
+        return axiosInstance.get('/api/order/myOrders');
+    },
+    createOrder: async (orderData) => {
+        return axiosInstance.post('/api/v1/payments/create-order', orderData);
+    },
+    verifyPayment: async (paymentData) => {
+        return axiosInstance.post('/api/v1/payments/verify', paymentData);
+    },
+    resetPassword: async (userEmail) => {
+        return axiosInstance.post('/api/forgot-password', { email: userEmail });
     }
 }
 

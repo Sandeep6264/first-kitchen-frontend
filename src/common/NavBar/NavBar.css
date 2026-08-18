@@ -109,6 +109,8 @@ body {
 .desktopMenu button:hover {
   background-color: #fff0e8;
   border-color: #ffccbb;
+  color: white;
+ 
 }
 
 .desktopMenu .signup {
@@ -188,6 +190,7 @@ body {
 
 .mobileMenu button:hover {
   background-color: #fff8f5;
+  
   border: none;
 }
 

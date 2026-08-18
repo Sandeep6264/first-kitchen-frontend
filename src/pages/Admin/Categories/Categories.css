@@ -1,0 +1,102 @@
+/* Categories.css */
+.categories-screen {
+  display: flex;c
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.stat-item {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  text-align: center;
+  box-shadow: 0 4px 12px var(--card-shadow);
+  border: 1px solid var(--border-light);
+}
+
+.stat-item .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--spacing-xs);
+}
+
+.stat-item .stat-label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.categories-table-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  border: 1px solid var(--border-light);
+}
+
+.table-filters {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.search-box {
+  flex: 1;
+  position: relative;
+}
+
+.search-box i {
+  position: absolute;
+  left: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+}
+
+.search-box input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-sm) 40px;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+}
+
+.status-filter {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  min-width: 150px;
+}
+
+.category-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.category-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.category-description {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.item-count {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--bg-panel);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  display: inline-block;
+}

@@ -16,6 +16,12 @@ import Checkout from './pages/Checkout/Checkout';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthGuard from './AuthGuard';
+import PaymentComponent from './pages/PaymentComponent/PaymentComponent';
+import Dashboard from './pages/Admin/Dashboard/Dashboard';
+import UserManagement from './pages/Admin/UserManagement/UserManagement';
+import AdminLayout from './pages/Admin/AdminLayout';
+import ForgetPassword from './common/ForgetPassword/ForgetPassword';
+
 // Define your routes here (outside component)
 const router = [
   {
@@ -23,21 +29,38 @@ const router = [
     name: "Unauthenticated",
     routes: [
       { path: "/login", element: <Login /> },
+      { path: "/forgot-password", element: <ForgetPassword /> },
       { path: "/signup", element: <Signup /> },
-      { path: "*", element: <Login /> } // redirect unknown to login
+      // { path="/forgot-password", element: <ForgetPassword /> }, // Placeholder for forgot password page
+      { path: "*", element: <Login /> }// redirect unknown to login
+      // { path: "/signup", element: <PaymentComponent /> },
     ]
   },
   {
     // Add authenticated routes here
     name: "Authenticated",
     routes: [
-      { path: "/home", element: <AuthGuard><Home/></AuthGuard> },
+      { path: "/home", element: <AuthGuard><Home /></AuthGuard> },
       { path: "/cart", element: <AuthGuard><Cart /></AuthGuard> },
       { path: "/myorders", element: <AuthGuard><MyOrders /></AuthGuard> },
       { path: "/offers", element: <AuthGuard><Offers /></AuthGuard> },
       { path: "/checkout", element: <AuthGuard><Checkout /></AuthGuard> },
+      { path: "/payment", element: <AuthGuard><PaymentComponent /></AuthGuard> },
       { path: "/restaurant/:id", element: <AuthGuard><RestaurantDetail /></AuthGuard> },
-      { path: "/livetracking", element: <AuthGuard><LiveTracking /></AuthGuard> },
+      // { path: "/restaurant", element: <AuthGuard><UserManagement /></AuthGuard> },
+      // { path: "/usermanagement", element: <AuthGuard><UserManagement /></AuthGuard> },
+      {
+        path: "/usermanagement/*",
+        element: (
+          <AuthGuard>
+            <AdminLayout />
+          </AuthGuard>
+        )
+      },
+
+      // { path: "/livetracking", element: <AuthGuard><LiveTracking /></AuthGuard> },
+      { path: "/livetracking", element: <AuthGuard><Dashboard /></AuthGuard> },
+
       { path: "*", element: <Home /> } // redirect unknown to home
 
     ]

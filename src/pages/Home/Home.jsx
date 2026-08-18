@@ -1,9 +1,11 @@
 // src/pages/Home.jsx
-import React, { useState, useEffect, use } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
-import { FiSearch, FiShoppingCart, FiPlus, FiMinus, FiCheck } from 'react-icons/fi';
+import { FiSearch, FiShoppingCart, FiPlus, FiMinus } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import API from '../../Service/API';
+import IngredientsModal from '../../common/IngredientsModal/IngredientsModal';
+// import IngredientsModal from '../../components/IngredientsModal';
 
 const initialItems = [
   { id: 1, name: "Chicken Biryani", price: 320, category: "Biryani" },
@@ -16,6 +18,9 @@ const initialItems = [
 
 const Home = () => {
   const { ...context } = useAuth();
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const fetchItemData = async () => {
     try {
       context.setloader(true);
@@ -23,8 +28,7 @@ const Home = () => {
       const { ...result } = response.data;
       if (result && result.responseStatus == "S" && result.responseCode == 200) {
         context.setItems(result.responseContent);
-      }
-      else {
+      } else {
         context.setItems(initialItems);
       }
     } catch (error) {
@@ -33,16 +37,15 @@ const Home = () => {
       context.setloader(false);
     }
   };
+
   useEffect(() => {
-    if(context.items.length === 0)
-    fetchItemData();
+    if (context.items.length === 0)
+      fetchItemData();
   }, []);
 
   useEffect(() => {
     localStorage.setItem('firstKitchenCart', JSON.stringify(context.cart));
   }, [context.cart]);
-
-
 
   const addToCart = (item) => {
     context.setCart(prev => {
@@ -67,10 +70,23 @@ const Home = () => {
 
   const getQty = (id) => {
     const item = context.cart.find(i => i.itemId === id);
-    // console.log('Getting qty for itemId:', id, 'Found item:', item);
     return item ? item.qty : 0;
-  }
+  };
 
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setIsModalOpen(true);
+  };
+
+  const handleAddToCart = (item, e) => {
+    e.stopPropagation();
+    addToCart(item);
+  };
+
+  const handleUpdateQty = (id, change, e) => {
+    e.stopPropagation();
+    updateQty(id, change);
+  };
 
   return (
     <div className="home-page">
@@ -89,9 +105,14 @@ const Home = () => {
           {context.items.map(item => {
             const qty = getQty(item.itemId);
             return (
-              <div key={item.itemId} className="food-card">
+              <div
+                key={item.itemId}
+                className="food-card"
+                onClick={() => handleItemClick(item)}
+              >
                 <div className="food-img placeholder item-image">
                   <img src={item.itemImg} alt={item.itemName} />
+                  <div className="view-details">Click for details</div>
                 </div>
                 <div className="food-info">
                   <h3>{item.itemName}</h3>
@@ -100,16 +121,22 @@ const Home = () => {
                     <span className="price">₹{item.itemPrice}</span>
 
                     {qty === 0 ? (
-                      <button className="add-btn" onClick={() => addToCart(item)}>
+                      <button
+                        className="add-btn"
+                        onClick={(e) => handleAddToCart(item, e)}
+                      >
                         <FiShoppingCart /> Add
                       </button>
                     ) : (
-                      <div className="qty-control">
-                        <button onClick={() => updateQty(item.itemId, -1)}>
+                      <div
+                        className="qty-control"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button onClick={(e) => handleUpdateQty(item.itemId, -1, e)}>
                           <FiMinus />
                         </button>
                         <span className="qty-num">{qty}</span>
-                        <button onClick={() => updateQty(item.itemId, +1)}>
+                        <button onClick={(e) => handleUpdateQty(item.itemId, +1, e)}>
                           <FiPlus />
                         </button>
                       </div>
@@ -121,6 +148,15 @@ const Home = () => {
           })}
         </div>
       </div>
+
+      <IngredientsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        foodItem={selectedItem}
+        addToCart={addToCart}
+        updateQty={updateQty}
+        getQty={getQty}
+      />
     </div>
   );
 };

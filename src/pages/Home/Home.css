@@ -90,11 +90,13 @@
   color: #d4380d;
   font-weight: bold;
 }
-.food-img img{
+
+.food-img img {
   width: 100%;
   height: 100%;
-  
+
 }
+
 .food-info {
   padding: 20px;
 }
@@ -142,6 +144,7 @@
   background: #c22d00;
   transform: scale(1.05);
 }
+
 /* Add this to your existing Home.css or replace */
 
 .qty-control {
@@ -171,7 +174,7 @@
 }
 
 .qty-control button:active {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .qty-num {
@@ -197,11 +200,80 @@
     gap: 10px;
     align-items: flex-start;
   }
+
   .price {
     font-size: 1.3rem !important;
   }
-  .qty-control, .add-btn {
+
+  .qty-control,
+  .add-btn {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Home.css Additions */
+.food-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.food-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.food-card:hover .view-details {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.food-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.food-img img {
+  transition: transform 0.5s ease;
+}
+
+.food-card:hover .food-img img {
+  transform: scale(1.05);
+}
+
+.view-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 107, 107, 0.9);
+  color: white;
+  text-align: center;
+  padding: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.add-btn,
+.qty-control button {
+  position: relative;
+  z-index: 2;
+}
+
+/* Prevent text selection on click */
+.food-card * {
+  user-select: none;
+}
+
+/* Loading state for modal */
+.modal-content.loading {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

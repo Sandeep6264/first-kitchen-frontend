@@ -6,6 +6,6 @@ export default defineConfig({
     base: '/firstKitchen/',
   plugins: [react()],
   server:{
-    port: 3000,
+    port: 5173,
   }
 })

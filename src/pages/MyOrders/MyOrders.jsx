@@ -1,27 +1,90 @@
 // src/pages/MyOrders.jsx
-import React from 'react';
-import './MyOrders.css';
+import React, { useEffect, useState } from "react";
+import "./MyOrders.css";
+import { useAuth } from "../../context/AuthContext";
+import API from "../../Service/API";
 
-const orders = [
-  { id: 1001, date: "15 Nov", items: 3, total: 689, status: "Delivered" },
-  { id: 998, date: "12 Nov", items: 2, total: 420, status: "Delivered" },
-];
+import { toast } from 'react-toastify';
+import OrderDetailsPopup from "../../common/OrderItemPopup/OrderItemPopUp";
+
+
+
 
 const MyOrders = () => {
+  const { ...context } = useAuth();
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState({});
+
+  const handleClick = (order) => {
+    setSelectedOrder(order);
+    setShowPopup(true);
+  };
+
+  const fetchOrders = async () => {
+    try {
+      context.setloader(true);
+      const response = await API.getMyOrders();
+      const { ...result } = response.data;
+      if (result.responseCode !== 200 && result.responseStatus !== "S") {
+        toast.error(result.responseMessage || "Failed to fetch orders.");
+        return;
+      } else {
+        context.setOrders(result.responseContent);
+        console.log("Orders fetched:", result.responseContent);
+      }
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+      // setError({ status: true, msg: "Failed to fetch orders", icon: "error" })
+      toast.error("An error occurred while fetching orders. Please try again.");
+    } finally {
+      context.setloader(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+
+
   return (
     <div className="orders-page">
-      <h1>My Orders</h1>
-      {orders.map(order => (
-        <div key={order.id} className="order-card">
-          <div className="order-info">
-            <h3>Order #{order.id}</h3>
-            <p>{order.date} • {order.items} items</p>
-          </div>
-          <div className="order-price">₹{order.total}</div>
-          <div className="order-status delivered">{order.status}</div>
-          <button className="reorder-btn">Reorder</button>
+      {showPopup && <OrderDetailsPopup order={selectedOrder} isOpen={showPopup} onClose={() => setShowPopup(false)} />}
+      <h1 className="orders-title">My Orders</h1>
+
+      {context.orders.length === 0 ? (
+        <p className="empty-orders">You have no orders yet.</p>
+      ) : (
+        <div className="orders-list">
+          {context.orders.map((order) => (
+            <div key={order.id} className="order-card" >
+              <div className="order-left">
+                <h3 className="order-id">Order #{order.orderId}</h3>
+                <p className="order-meta">
+                  {new Date(order.orderDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                  })} • {order.items.length} item{order.items.length > 1 ? "s" : ""}
+                </p>
+              </div>
+
+              <div className="order-right">
+                <div className="order-total">₹{order.totalAmount}</div>
+                <span
+                  className={`order-status ${order.status.toLowerCase()
+                    }`}
+                >
+                  {order.status}
+                </span>
+                <button className="reorder-btn" onClick={() => {
+                  handleClick(order);
+                }}>Reorder</button>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 };

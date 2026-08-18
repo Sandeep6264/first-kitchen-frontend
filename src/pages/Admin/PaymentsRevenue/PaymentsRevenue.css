@@ -1,0 +1,454 @@
+/* PaymentsRevenue.css */
+.payments-revenue-screen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+/* Date Filters */
+.date-filters {
+  display: flex;
+  gap: var(--spacing-xs);
+  background: var(--bg-panel);
+  border-radius: var(--radius-md);
+  padding: 4px;
+}
+
+.date-filter-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  background: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.date-filter-btn:hover {
+  background-color: var(--accent-hover);
+  color: var(--text-primary);
+}
+
+.date-filter-btn.active {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+/* Revenue Stats */
+.revenue-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.revenue-stat-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+}
+
+.revenue-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--card-shadow);
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.stat-period {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: var(--bg-panel);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.stat-content h3 {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 500;
+}
+
+.stat-content .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.stat-change {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.stat-change.positive {
+  color: var(--success);
+}
+
+.stat-change.negative {
+  color: var(--cancelled);
+}
+
+/* Charts Section */
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-xl);
+}
+
+/* Payment Methods Chart */
+.payment-methods-chart {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-lg) 0;
+}
+
+.donut-chart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.donut-chart-visual {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.donut-segment {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 50% 100%);
+  transform: rotate(var(--rotation));
+  background: conic-gradient(
+    var(--color) 0% var(--percentage),
+    transparent var(--percentage) 100%
+  );
+}
+
+.donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px var(--card-shadow);
+}
+
+.center-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.center-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.methods-legend {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.method-item {
+  background: var(--bg-panel);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-light);
+}
+
+.method-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.method-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.method-name {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.method-percentage {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.method-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.method-amount {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.method-count {
+  color: var(--text-muted);
+}
+
+/* Revenue Trend Chart */
+.revenue-trend-chart {
+  height: 300px;
+  position: relative;
+  padding: var(--spacing-lg);
+  padding-bottom: var(--spacing-xl);
+  padding-left: var(--spacing-xl);
+}
+
+.trend-lines {
+  position: relative;
+  width: 100%;
+  height: calc(100% - 30px);
+  border-bottom: 1px solid var(--border-light);
+  border-left: 1px solid var(--border-light);
+}
+
+.line-point {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--primary-gradient);
+  border-radius: 50%;
+  transform: translate(-50%, 50%);
+  transition: var(--transition);
+}
+
+.line-point:hover {
+  width: 16px;
+  height: 16px;
+}
+
+.line-point::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: var(--percentage);
+  background: var(--border-light);
+  z-index: -1;
+}
+
+.line-point:hover .point-value {
+  display: block;
+}
+
+.point-value {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: none;
+  white-space: nowrap;
+}
+
+.chart-x-axis {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--spacing-sm);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.chart-y-axis {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* Payment History */
+.payment-history-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: 0 4px 12px var(--card-shadow);
+  border: 1px solid var(--border-light);
+}
+
+.history-filters {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.table-container {
+  overflow-x: auto;
+  margin: var(--spacing-lg) 0;
+}
+
+.payment-id {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.payment-amount {
+  font-weight: 700;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.method-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.payment-date {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.payment-date .date {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.payment-date .time {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.order-id-link {
+  color: var(--primary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.order-id-link:hover {
+  text-decoration: underline;
+}
+
+.view-btn {
+  color: var(--info);
+}
+
+.approve-btn {
+  color: var(--success);
+}
+
+.refund-btn {
+  color: var(--warning);
+}
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-light);
+}
+
+.summary-stats {
+  display: flex;
+  gap: var(--spacing-xl);
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.summary-item .label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.summary-item .value {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .payment-methods-chart {
+    flex-direction: column;
+  }
+  
+  .history-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .table-footer {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: stretch;
+  }
+  
+  .summary-stats {
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+  }
+}
