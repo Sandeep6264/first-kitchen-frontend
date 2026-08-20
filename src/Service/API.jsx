@@ -61,8 +61,11 @@ const API = {
     verifyPayment: async (paymentData) => {
         return axiosInstance.post('/api/v1/payments/verify', paymentData);
     },
-    resetPassword: async (userEmail) => {
-        return axiosInstance.post('/api/forgot-password', { email: userEmail });
+    forgotPassword: async (data) => {
+        return axiosInstance.post('/auth/forgot-password', data);
+    },
+    resetPassword: async (data) => {
+        return axiosInstance.post('/auth/reset-password', data);
     }
 }
 
