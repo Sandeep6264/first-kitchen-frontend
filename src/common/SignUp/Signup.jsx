@@ -6,7 +6,6 @@ import API from '../../Service/API';
 import { NavLink } from 'react-router';
 
 const Signup = () => {
-  /* Signup form state and handlers can be added here */
   const { ...context } = useAuth();
   const [signupData, setSignupData] = useState({
     fullName: '',

@@ -21,6 +21,7 @@ import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import UserManagement from './pages/Admin/UserManagement/UserManagement';
 import AdminLayout from './pages/Admin/AdminLayout';
 import ForgetPassword from './common/ForgetPassword/ForgetPassword';
+import ResetPassword from './common/ResetPassword/ResetPassword';
 
 // Define your routes here (outside component)
 const router = [
@@ -30,6 +31,7 @@ const router = [
     routes: [
       { path: "/login", element: <Login /> },
       { path: "/forgot-password", element: <ForgetPassword /> },
+      { path: "/reset-password", element: <ResetPassword /> },
       { path: "/signup", element: <Signup /> },
       // { path="/forgot-password", element: <ForgetPassword /> }, // Placeholder for forgot password page
       { path: "*", element: <Login /> }// redirect unknown to login
