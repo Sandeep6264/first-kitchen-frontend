@@ -1,4 +1,4 @@
-// OrderDetailsPopup.jsx - UPDATED
+// OrderDetailsPopup.jsx
 import React, { useEffect } from 'react';
 import './OrderDetailsPopup.css';
 import { RxCross2 } from "react-icons/rx";
@@ -33,8 +33,6 @@ const OrderDetailsPopup = ({ order, isOpen, onClose }) => {
             year: 'numeric'
         });
     };
-
-    // Get status color based on order status
     const getStatusColor = (status) => {
         switch (status.toLowerCase()) {
             case 'completed':
@@ -50,13 +48,12 @@ const OrderDetailsPopup = ({ order, isOpen, onClose }) => {
         }
     };
 
-    // Don't render if not open or no order data
     if (!isOpen || !order) return null;
 
     return (
         <div className="modal-overlay" onClick={handleOverlayClick}>
             <div className="modal-container">
-                {/* Modal Header - Fixed at top */}
+              
                 <div className="modal-header">
                     <div className="order-title">
                         <h2>Order #{order.orderId}</h2>
@@ -67,9 +64,8 @@ const OrderDetailsPopup = ({ order, isOpen, onClose }) => {
                     </button>
                 </div>
 
-                {/* Scrollable content area */}
                 <div className="modal-content">
-                    {/* Order Status */}
+                
                     <div className="order-status-section">
                         <span
                             className="status-badge"
@@ -79,7 +75,6 @@ const OrderDetailsPopup = ({ order, isOpen, onClose }) => {
                         </span>
                     </div>
 
-                    {/* Order Items */}
                     <div className="order-items-section">
                         <h3 className="section-title">Order Items</h3>
                         <div className="items-container">
@@ -99,15 +94,12 @@ const OrderDetailsPopup = ({ order, isOpen, onClose }) => {
                     <div className="order-summary">
                         <div className="summary-row">
                             <span>Subtotal</span>
-                            {/* <span>${order.subtotal.toFixed(2)}</span> */}
                         </div>
                         <div className="summary-row">
                             <span>Delivery Fee</span>
-                            {/* <span>${order.deliveryFee.toFixed(2)}</span> */}
                         </div>
                         <div className="summary-row">
                             <span>Tax</span>
-                            {/* <span>${order.tax.toFixed(2)}</span> */}
                         </div>
                         <div className="summary-row total-row">
                             <span>Total Amount</span>

@@ -1,20 +1,9 @@
-// src/pages/Home.jsx
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import { FiSearch, FiShoppingCart, FiPlus, FiMinus } from 'react-icons/fi';
 import { useAuth } from '../../context/AuthContext';
 import API from '../../Service/API';
 import IngredientsModal from '../../common/IngredientsModal/IngredientsModal';
-// import IngredientsModal from '../../components/IngredientsModal';
-
-const initialItems = [
-  { id: 1, name: "Chicken Biryani", price: 320, category: "Biryani" },
-  { id: 2, name: "Paneer Butter Masala", price: 280, category: "Veg" },
-  { id: 3, name: "Margherita Pizza", price: 399, category: "Pizza" },
-  { id: 4, name: "Butter Chicken", price: 350, category: "Non-Veg" },
-  { id: 5, name: "Veg Fried Rice", price: 180, category: "Chinese" },
-  { id: 6, name: "Tandoori Roti", price: 25, category: "Breads" },
-];
 
 const Home = () => {
   const { ...context } = useAuth();

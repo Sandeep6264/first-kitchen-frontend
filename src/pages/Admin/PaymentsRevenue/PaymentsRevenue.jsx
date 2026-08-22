@@ -1,51 +1,76 @@
-// pages/PaymentsRevenue.jsx
 import React, { useState } from 'react';
+import {
+  FaDollarSign,
+  FaCalendarDay,
+  FaChartLine,
+  FaCheckCircle,
+  FaDownload,
+  FaArrowUp,
+  FaArrowDown,
+  FaCreditCard,
+  FaMobileAlt,
+  FaMoneyBill,
+  FaUniversity,
+  FaEye,
+  FaCheck,
+  FaUndo,
+  FaFilter,
+  FaChevronLeft,
+  FaChevronRight,
+  FaWallet,
+  FaPercent,
+  FaClock,
+  FaCalendarAlt,
+  FaSearch,
+  FaShoppingBag
+} from 'react-icons/fa';
 import './PaymentsRevenue.css';
 
 const PaymentsRevenue = () => {
   const [activeFilter, setActiveFilter] = useState('today');
   const [selectedDateRange, setSelectedDateRange] = useState('thisMonth');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const revenueStats = [
-    { 
-      title: 'Total Revenue', 
-      value: '$45,320.80', 
-      change: '+15.2%', 
+    {
+      title: 'Total Revenue',
+      value: '$45,320.80',
+      change: '+15.2%',
       period: 'This Month',
-      icon: 'fas fa-dollar-sign',
-      color: '#52c41a'
+      icon: FaDollarSign,
+      color: '#22c55e'
     },
-    { 
-      title: "Today's Revenue", 
-      value: '$2,845.50', 
-      change: '+8.5%', 
+    {
+      title: "Today's Revenue",
+      value: '$2,845.50',
+      change: '+8.5%',
       period: 'vs Yesterday',
-      icon: 'fas fa-calendar-day',
-      color: '#1890ff'
+      icon: FaCalendarDay,
+      color: '#3b82f6'
     },
-    { 
-      title: 'Average Order Value', 
-      value: '$32.45', 
-      change: '+4.2%', 
+    {
+      title: 'Average Order Value',
+      value: '$32.45',
+      change: '+4.2%',
       period: 'This Month',
-      icon: 'fas fa-chart-line',
-      color: '#722ed1'
+      icon: FaChartLine,
+      color: '#8b5cf6'
     },
-    { 
-      title: 'Successful Payments', 
-      value: '98.2%', 
-      change: '+0.8%', 
+    {
+      title: 'Successful Payments',
+      value: '98.2%',
+      change: '+0.8%',
       period: 'Success Rate',
-      icon: 'fas fa-check-circle',
-      color: '#d4380d'
+      icon: FaCheckCircle,
+      color: '#E54304'
     }
   ];
 
   const paymentMethods = [
-    { method: 'Credit Card', percentage: 65, amount: '$29,458.52', count: 892 },
-    { method: 'Digital Wallet', percentage: 25, amount: '$11,330.20', count: 343 },
-    { method: 'Cash on Delivery', percentage: 8, amount: '$3,625.66', count: 110 },
-    { method: 'Bank Transfer', percentage: 2, amount: '$906.42', count: 27 }
+    { method: 'Credit Card', percentage: 65, amount: '$29,458.52', count: 892, icon: FaCreditCard },
+    { method: 'Digital Wallet', percentage: 25, amount: '$11,330.20', count: 343, icon: FaMobileAlt },
+    { method: 'Cash on Delivery', percentage: 8, amount: '$3,625.66', count: 110, icon: FaMoneyBill },
+    { method: 'Bank Transfer', percentage: 2, amount: '$906.42', count: 27, icon: FaUniversity }
   ];
 
   const paymentHistory = [
@@ -60,67 +85,89 @@ const PaymentsRevenue = () => {
   ];
 
   const getPaymentMethodColor = (method) => {
-    switch(method) {
-      case 'Credit Card': return '#1890ff';
-      case 'Digital Wallet': return '#52c41a';
-      case 'Cash on Delivery': return '#722ed1';
-      case 'Bank Transfer': return '#fa8c16';
-      default: return '#d4380d';
+    switch (method) {
+      case 'Credit Card': return '#3b82f6';
+      case 'Digital Wallet': return '#22c55e';
+      case 'Cash on Delivery': return '#8b5cf6';
+      case 'Bank Transfer': return '#f59e0b';
+      default: return '#E54304';
     }
   };
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'completed': return '#22c55e';
+      case 'pending': return '#f59e0b';
+      case 'refunded': return '#ef4444';
+      default: return '#94a3b8';
+    }
+  };
+
+  const filteredPayments = paymentHistory.filter(payment =>
+    payment.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    payment.method.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    payment.status.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="payments-revenue-screen">
-      <div className="screen-header">
-        <h1>Payments & Revenue</h1>
-        <div className="header-actions">
+    <div className="payments-revenue">
+      {/* Header */}
+      <div className="page-header">
+        <div className="header-left">
+          <h1>Payments & Revenue</h1>
+          <p>Monitor your financial performance and payment activity</p>
+        </div>
+        <div className="header-right">
           <div className="date-filters">
             {['today', 'week', 'month', 'quarter', 'year'].map(filter => (
               <button
                 key={filter}
-                className={`date-filter-btn ${activeFilter === filter ? 'active' : ''}`}
+                className={`filter-btn ${activeFilter === filter ? 'active' : ''}`}
                 onClick={() => setActiveFilter(filter)}
               >
                 {filter.charAt(0).toUpperCase() + filter.slice(1)}
               </button>
             ))}
           </div>
-          <button className="btn btn-primary">
-            <i className="fas fa-download"></i>
-            Export Report
+          <button className="btn-primary">
+            <FaDownload size={14} />
+            Export
           </button>
         </div>
       </div>
 
       {/* Revenue Stats */}
-      <div className="revenue-stats-grid">
-        {revenueStats.map((stat, index) => (
-          <div key={index} className="revenue-stat-card">
-            <div className="stat-header">
-              <div className="stat-icon" style={{ backgroundColor: `${stat.color}20` }}>
-                <i className={stat.icon} style={{ color: stat.color }}></i>
+      <div className="stats-grid">
+        {revenueStats.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <div key={index} className="stat-card">
+              <div className="stat-header">
+                <div className="stat-icon" style={{ background: `${stat.color}15`, color: stat.color }}>
+                  <Icon size={20} />
+                </div>
+                <span className="stat-period">{stat.period}</span>
               </div>
-              <div className="stat-period">{stat.period}</div>
-            </div>
-            <div className="stat-content">
-              <h3>{stat.title}</h3>
-              <div className="stat-value">{stat.value}</div>
-              <div className={`stat-change ${stat.change.startsWith('+') ? 'positive' : 'negative'}`}>
-                <i className={`fas fa-${stat.change.startsWith('+') ? 'arrow-up' : 'arrow-down'}`}></i>
-                {stat.change}
+              <div className="stat-body">
+                <h3>{stat.title}</h3>
+                <div className="stat-value">{stat.value}</div>
+                <div className={`stat-change ${stat.change.startsWith('+') ? 'positive' : 'negative'}`}>
+                  {stat.change.startsWith('+') ? <FaArrowUp size={12} /> : <FaArrowDown size={12} />}
+                  {stat.change}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Charts Section */}
       <div className="charts-section">
-        {/* Payment Method Distribution */}
+        {/* Payment Methods */}
         <div className="chart-card">
           <div className="card-header">
-            <h3>Payment Method Distribution</h3>
-            <select 
+            <h3>Payment Methods</h3>
+            <select
               className="period-select"
               value={selectedDateRange}
               onChange={(e) => setSelectedDateRange(e.target.value)}
@@ -131,40 +178,57 @@ const PaymentsRevenue = () => {
               <option value="thisYear">This Year</option>
             </select>
           </div>
-          <div className="payment-methods-chart">
+          <div className="payment-methods">
             <div className="donut-chart">
-              <div className="donut-chart-visual">
-                {paymentMethods.map((method, index) => (
-                  <div
-                    key={method.method}
-                    className="donut-segment"
-                    style={{
-                      '--percentage': `${method.percentage}%`,
-                      '--color': getPaymentMethodColor(method.method),
-                      '--rotation': `${paymentMethods.slice(0, index).reduce((acc, m) => acc + m.percentage, 0) * 3.6}deg`
-                    }}
-                  ></div>
-                ))}
-              </div>
-              <div className="donut-center">
-                <div className="center-value">100%</div>
-                <div className="center-label">Total</div>
+              <div className="donut-ring">
+                {paymentMethods.map((method, index) => {
+                  const prevPercentages = paymentMethods.slice(0, index).reduce((acc, m) => acc + m.percentage, 0);
+                  return (
+                    <div
+                      key={method.method}
+                      className="donut-segment"
+                      style={{
+                        transform: `rotate(${prevPercentages * 3.6}deg)`,
+                        background: `conic-gradient(${getPaymentMethodColor(method.method)} 0% ${method.percentage}%, transparent ${method.percentage}% 100%)`
+                      }}
+                    />
+                  );
+                })}
+                <div className="donut-center">
+                  <FaWallet size={24} />
+                  <span className="center-value">100%</span>
+                  <span className="center-label">Total</span>
+                </div>
               </div>
             </div>
-            <div className="methods-legend">
-              {paymentMethods.map(method => (
-                <div key={method.method} className="method-item">
-                  <div className="method-header">
-                    <div className="method-color" style={{ backgroundColor: getPaymentMethodColor(method.method) }}></div>
-                    <span className="method-name">{method.method}</span>
-                    <span className="method-percentage">{method.percentage}%</span>
+            <div className="methods-list">
+              {paymentMethods.map(method => {
+                const Icon = method.icon;
+                return (
+                  <div key={method.method} className="method-item">
+                    <div className="method-info">
+                      <div className="method-icon" style={{ color: getPaymentMethodColor(method.method) }}>
+                        <Icon size={16} />
+                      </div>
+                      <span className="method-name">{method.method}</span>
+                    </div>
+                    <div className="method-stats">
+                      <span className="method-percentage">{method.percentage}%</span>
+                      <span className="method-amount">{method.amount}</span>
+                      <span className="method-count">{method.count} payments</span>
+                    </div>
+                    <div className="method-bar">
+                      <div
+                        className="method-bar-fill"
+                        style={{
+                          width: `${method.percentage}%`,
+                          background: getPaymentMethodColor(method.method)
+                        }}
+                      />
+                    </div>
                   </div>
-                  <div className="method-details">
-                    <div className="method-amount">{method.amount}</div>
-                    <div className="method-count">{method.count} payments</div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -180,70 +244,92 @@ const PaymentsRevenue = () => {
               <option>Last Year</option>
             </select>
           </div>
-          <div className="revenue-trend-chart">
-            <div className="trend-lines">
-              {[80, 65, 75, 85, 70, 90, 85, 95, 80, 75, 85, 90].map((value, index) => (
-                <div key={index} className="line-point" style={{ left: `${(index * 100) / 11}%`, bottom: `${value}%` }}>
-                  <div className="point-value">${(value * 50).toLocaleString()}</div>
+          <div className="trend-chart">
+            <div className="chart-container">
+              <div className="chart-y-axis">
+                <span>$50k</span>
+                <span>$37.5k</span>
+                <span>$25k</span>
+                <span>$12.5k</span>
+                <span>$0</span>
+              </div>
+              <div className="chart-grid">
+                {[80, 65, 75, 85, 70, 90, 85, 95, 80, 75, 85, 90].map((value, index) => (
+                  <div key={index} className="bar-wrapper">
+                    <div
+                      className="trend-bar"
+                      style={{
+                        height: `${value}%`,
+                        background: `linear-gradient(to top, #E54304, #f59e0b)`
+                      }}
+                    />
+                    <span className="bar-label">
+                      {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][index]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="trend-summary">
+              <div className="trend-stat">
+                <FaChartLine size={16} style={{ color: '#22c55e' }} />
+                <div>
+                  <span className="trend-label">Total Revenue</span>
+                  <span className="trend-value">$45,320.80</span>
                 </div>
-              ))}
-            </div>
-            <div className="chart-x-axis">
-              <span>Jan</span>
-              <span>Feb</span>
-              <span>Mar</span>
-              <span>Apr</span>
-              <span>May</span>
-              <span>Jun</span>
-              <span>Jul</span>
-              <span>Aug</span>
-              <span>Sep</span>
-              <span>Oct</span>
-              <span>Nov</span>
-              <span>Dec</span>
-            </div>
-            <div className="chart-y-axis">
-              <span>$50k</span>
-              <span>$40k</span>
-              <span>$30k</span>
-              <span>$20k</span>
-              <span>$10k</span>
-              <span>$0</span>
+              </div>
+              <div className="trend-stat">
+                <FaCalendarAlt size={16} style={{ color: '#3b82f6' }} />
+                <div>
+                  <span className="trend-label">This Month</span>
+                  <span className="trend-value">+15.2% growth</span>
+                </div>
+              </div>
+              <div className="trend-stat">
+                <FaClock size={16} style={{ color: '#8b5cf6' }} />
+                <div>
+                  <span className="trend-label">Avg. Daily Revenue</span>
+                  <span className="trend-value">$1,510.69</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       {/* Payment History */}
-      <div className="payment-history-card">
+      <div className="history-card">
         <div className="card-header">
           <h3>Payment History</h3>
-          <div className="history-filters">
-            <select className="form-control">
+          <div className="history-controls">
+            <div className="search-box">
+              <FaSearch size={14} />
+              <input
+                type="text"
+                placeholder="Search payments..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <select className="filter-select">
               <option>All Status</option>
               <option>Completed</option>
               <option>Pending</option>
               <option>Refunded</option>
-              <option>Failed</option>
             </select>
-            <input
-              type="date"
-              className="form-control"
-              defaultValue="2024-01-15"
-            />
-            <button className="btn btn-outline">
-              <i className="fas fa-filter"></i>
+            <button className="btn-filter">
+              <FaFilter size={14} />
               Filter
             </button>
           </div>
         </div>
         <div className="table-container">
-          <table className="data-table">
+          <table className="payments-table">
             <thead>
               <tr>
                 <th>Payment ID</th>
                 <th>Amount</th>
-                <th>Payment Method</th>
+                <th>Method</th>
                 <th>Status</th>
                 <th>Date & Time</th>
                 <th>Order ID</th>
@@ -251,56 +337,62 @@ const PaymentsRevenue = () => {
               </tr>
             </thead>
             <tbody>
-              {paymentHistory.map(payment => (
+              {filteredPayments.map(payment => (
                 <tr key={payment.id}>
                   <td>
-                    <div className="payment-id">PAY-{payment.id.slice(4)}</div>
+                    <span className="payment-id">PAY-{payment.id.slice(4)}</span>
                   </td>
                   <td>
-                    <div className="payment-amount">{payment.amount}</div>
+                    <span className="payment-amount">{payment.amount}</span>
                   </td>
                   <td>
-                    <div className="payment-method">
-                      <span className="method-badge" style={{ 
-                        backgroundColor: `${getPaymentMethodColor(payment.method)}20`,
+                    <span
+                      className="method-badge"
+                      style={{
+                        background: `${getPaymentMethodColor(payment.method)}15`,
                         color: getPaymentMethodColor(payment.method)
-                      }}>
-                        <i className={`fas fa-${payment.method === 'Credit Card' ? 'credit-card' : payment.method === 'Digital Wallet' ? 'mobile-alt' : payment.method === 'Cash on Delivery' ? 'money-bill' : 'university'}`}></i>
-                        {payment.method}
-                      </span>
-                    </div>
+                      }}
+                    >
+                      {payment.method === 'Credit Card' && <FaCreditCard size={12} />}
+                      {payment.method === 'Digital Wallet' && <FaMobileAlt size={12} />}
+                      {payment.method === 'Cash on Delivery' && <FaMoneyBill size={12} />}
+                      {payment.method === 'Bank Transfer' && <FaUniversity size={12} />}
+                      {payment.method}
+                    </span>
                   </td>
                   <td>
-                    <span className={`status-tag ${
-                      payment.status === 'completed' ? 'status-success' :
-                      payment.status === 'pending' ? 'status-pending' :
-                      'status-cancelled'
-                    }`}>
+                    <span
+                      className={`status-badge ${payment.status}`}
+                      style={{
+                        background: `${getStatusColor(payment.status)}15`,
+                        color: getStatusColor(payment.status)
+                      }}
+                    >
                       {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
                     </span>
                   </td>
                   <td>
                     <div className="payment-date">
-                      <div className="date">{payment.date}</div>
-                      <div className="time">{payment.time}</div>
+                      <span className="date">{payment.date}</span>
+                      <span className="time">{payment.time}</span>
                     </div>
                   </td>
                   <td>
-                    <div className="order-id-link">{payment.id}</div>
+                    <span className="order-link">{payment.id}</span>
                   </td>
                   <td>
                     <div className="action-buttons">
-                      <button className="btn-icon view-btn" title="View Details">
-                        <i className="fas fa-eye"></i>
+                      <button className="action-btn view" title="View">
+                        <FaEye size={14} />
                       </button>
                       {payment.status === 'pending' && (
-                        <button className="btn-icon approve-btn" title="Approve Payment">
-                          <i className="fas fa-check"></i>
+                        <button className="action-btn approve" title="Approve">
+                          <FaCheck size={14} />
                         </button>
                       )}
                       {payment.status !== 'refunded' && (
-                        <button className="btn-icon refund-btn" title="Issue Refund">
-                          <i className="fas fa-undo"></i>
+                        <button className="action-btn refund" title="Refund">
+                          <FaUndo size={14} />
                         </button>
                       )}
                     </div>
@@ -313,31 +405,31 @@ const PaymentsRevenue = () => {
         <div className="table-footer">
           <div className="summary-stats">
             <div className="summary-item">
-              <span className="label">Total:</span>
-              <span className="value">$1,450.34</span>
+              <span className="summary-label">Total:</span>
+              <span className="summary-value">$1,450.34</span>
             </div>
             <div className="summary-item">
-              <span className="label">Completed:</span>
-              <span className="value">$1,397.89</span>
+              <span className="summary-label">Completed:</span>
+              <span className="summary-value" style={{ color: '#22c55e' }}>$1,397.89</span>
             </div>
             <div className="summary-item">
-              <span className="label">Pending:</span>
-              <span className="value">$15.99</span>
+              <span className="summary-label">Pending:</span>
+              <span className="summary-value" style={{ color: '#f59e0b' }}>$15.99</span>
             </div>
             <div className="summary-item">
-              <span className="label">Refunded:</span>
-              <span className="value">$52.40</span>
+              <span className="summary-label">Refunded:</span>
+              <span className="summary-value" style={{ color: '#ef4444' }}>$52.40</span>
             </div>
           </div>
           <div className="pagination">
             <button className="page-btn" disabled>
-              <i className="fas fa-chevron-left"></i>
+              <FaChevronLeft size={12} />
             </button>
             <button className="page-btn active">1</button>
             <button className="page-btn">2</button>
             <button className="page-btn">3</button>
             <button className="page-btn">
-              <i className="fas fa-chevron-right"></i>
+              <FaChevronRight size={12} />
             </button>
           </div>
         </div>
