@@ -1,51 +1,64 @@
 // components/Sidebar.jsx
 import React from 'react';
+import {
+  FaChartLine,
+  FaShoppingCart,
+  FaUtensils,
+  FaCreditCard,
+  FaFire,
+  FaChartBar,
+  FaSignOutAlt,
+  FaCircle,
+  FaTags,
+  FaUsers,
+  FaCog
+} from 'react-icons/fa';
 import './Sidebar.css';
 
 const Sidebar = ({ collapsed, activePage, setActivePage }) => {
   const menuItems = [
-    { id: 'dashboard', icon: 'fas fa-chart-line', label: 'Dashboard' },
-    { id: 'orders', icon: 'fas fa-shopping-cart', label: 'Orders' },
-    { id: 'menu', icon: 'fas fa-utensils', label: 'Menu Management' },
-    { id: 'categories', icon: 'fas fa-tags', label: 'Categories' },
-    { id: 'users', icon: 'fas fa-users', label: 'Users / Customers' },
-    { id: 'payments', icon: 'fas fa-credit-card', label: 'Payments & Revenue' },
-    { id: 'kitchen-status', icon: 'fas fa-fire', label: 'Kitchen Status' },
-    { id: 'reports', icon: 'fas fa-chart-bar', label: 'Reports & Analytics' },
-    { id: 'settings', icon: 'fas fa-cog', label: 'Settings' },
+    { id: 'dashboard', icon: FaChartLine, label: 'Dashboard' },
+    { id: 'orders', icon: FaShoppingCart, label: 'Orders' },
+    { id: 'menu', icon: FaUtensils, label: 'Menu Management' },
+    { id: 'payments', icon: FaCreditCard, label: 'Payments & Revenue' },
+    { id: 'kitchen-status', icon: FaFire, label: 'Kitchen Status' },
+    { id: 'reports', icon: FaChartBar, label: 'Reports & Analytics' },
   ];
 
   return (
     <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       <nav className="sidebar-nav">
-        {menuItems.map(item => (
-          <button
-            key={item.id}
-            className={`nav-item ${activePage === item.id ? 'active' : ''}`}
-            onClick={() => setActivePage(item.id)}
-            aria-label={item.label}
-          >
-            <i className={item.icon}></i>
-            {!collapsed && <span>{item.label}</span>}
-          </button>
-        ))}
-        
+        {menuItems.map(item => {
+          const Icon = item.icon;
+          return (
+            <button
+              key={item.id}
+              className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+              onClick={() => setActivePage(item.id)}
+              aria-label={item.label}
+            >
+              <Icon size={18} />
+              {!collapsed && <span>{item.label}</span>}
+            </button>
+          );
+        })}
+
         <div className="sidebar-divider"></div>
-        
+
         <button
           className="nav-item logout-item"
           onClick={() => setActivePage('logout')}
         >
-          <i className="fas fa-sign-out-alt"></i>
+          <FaSignOutAlt size={18} />
           {!collapsed && <span>Logout</span>}
         </button>
       </nav>
-      
+
       {!collapsed && (
         <div className="sidebar-footer">
           <div className="current-status">
             <div className="status-indicator active">
-              <span className="status-dot"></span>
+              <FaCircle className="status-dot" size={8} />
               <span>Kitchen Live</span>
             </div>
             <div className="status-time">Since 9:00 AM</div>

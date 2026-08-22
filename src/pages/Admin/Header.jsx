@@ -1,5 +1,12 @@
-// components/Header.jsx
+
 import React from 'react';
+import { 
+  FaBars, 
+  FaSearch, 
+  FaBell, 
+  FaSignOutAlt,
+  FaUserCircle 
+} from 'react-icons/fa';
 import './Header.css';
 
 const Header = ({ onMenuClick, sidebarCollapsed }) => {
@@ -11,7 +18,7 @@ const Header = ({ onMenuClick, sidebarCollapsed }) => {
           onClick={onMenuClick}
           aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          <i className="fas fa-bars"></i>
+          <FaBars size={20} />
         </button>
         <div className="logo">
           <span className="logo-text">First Kitchen Admin</span>
@@ -20,7 +27,7 @@ const Header = ({ onMenuClick, sidebarCollapsed }) => {
       
       <div className="header-center">
         <div className="search-container">
-          <i className="fas fa-search search-icon"></i>
+          <FaSearch className="search-icon" size={16} />
           <input 
             type="search"
             className="search-input"
@@ -32,7 +39,7 @@ const Header = ({ onMenuClick, sidebarCollapsed }) => {
       
       <div className="header-right">
         <button className="notification-btn" aria-label="Notifications">
-          <i className="fas fa-bell"></i>
+          <FaBell size={20} />
           <span className="notification-badge">3</span>
         </button>
         
@@ -47,7 +54,7 @@ const Header = ({ onMenuClick, sidebarCollapsed }) => {
         </div>
         
         <button className="logout-btn" aria-label="Logout">
-          <i className="fas fa-sign-out-alt"></i>
+          <FaSignOutAlt size={20} />
         </button>
       </div>
     </header>

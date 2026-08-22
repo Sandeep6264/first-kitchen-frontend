@@ -1,11 +1,35 @@
-// pages/KitchenStatus.jsx
 import React, { useState, useEffect } from 'react';
+import {
+  FaFire,
+  FaPauseCircle,
+  FaTimes,
+  FaClock,
+  FaHourglassHalf,
+  FaCheckCircle,
+  FaTachometerAlt,
+  FaHistory,
+  FaBell,
+  FaPrint,
+  FaCalendar,
+  FaCog,
+  FaInfoCircle,
+  FaExclamationTriangle,
+  FaArrowUp,
+  FaArrowDown,
+  FaCircle,
+  FaPlayCircle,
+  FaStopCircle,
+  FaUtensils,
+  FaUsers,
+  FaStar,
+  FaChartBar
+} from 'react-icons/fa';
 import './KitchenStatus.css';
 
 const KitchenStatus = () => {
   const [kitchenStatus, setKitchenStatus] = useState(true);
   const [tempOffline, setTempOffline] = useState(false);
-  const [offlineDuration, setOfflineDuration] = useState(60); // minutes
+  const [offlineDuration, setOfflineDuration] = useState(60);
   const [offlineReason, setOfflineReason] = useState('maintenance');
   const [offlineMessage, setOfflineMessage] = useState('Kitchen is currently undergoing maintenance. We apologize for the inconvenience.');
 
@@ -43,7 +67,6 @@ const KitchenStatus = () => {
     setTempOffline(false);
   };
 
-  // Simulate active orders update
   useEffect(() => {
     if (kitchenStatus) {
       const interval = setInterval(() => {
@@ -54,13 +77,17 @@ const KitchenStatus = () => {
   }, [kitchenStatus]);
 
   return (
-    <div className="kitchen-status-screen">
-      <div className="screen-header">
-        <h1>Kitchen Status Control</h1>
-        <div className="header-actions">
-          <div className="current-status-badge">
+    <div className="kitchen-status">
+      {/* Header */}
+      <div className="page-header">
+        <div className="header-left">
+          <h1>Kitchen Status</h1>
+          <p>Monitor and control your kitchen operations</p>
+        </div>
+        <div className="header-right">
+          <div className="status-badge">
             <span className={`status-indicator ${kitchenStatus ? 'online' : 'offline'}`}>
-              <span className="status-dot"></span>
+              <FaCircle className="status-dot" size={10} />
               {kitchenStatus ? 'LIVE' : 'OFFLINE'}
             </span>
           </div>
@@ -68,36 +95,36 @@ const KitchenStatus = () => {
       </div>
 
       {/* Main Status Control */}
-      <div className="status-control-card">
-        <div className="status-header">
+      <div className="status-control">
+        <div className="control-header">
           <h2>Kitchen Availability</h2>
-          <div className="status-subtitle">
-            Control whether the kitchen accepts new orders
-          </div>
+          <p className="control-subtitle">Control whether the kitchen accepts new orders</p>
         </div>
-        
-        <div className="toggle-section">
-          <div className="toggle-display">
-            <div className={`toggle-visual ${kitchenStatus ? 'online' : 'offline'}`}>
-              <div className="toggle-icon">
-                <i className={`fas fa-${kitchenStatus ? 'fire' : 'pause-circle'}`}></i>
+
+        <div className="control-body">
+          <div className="toggle-section">
+            <div className={`status-display ${kitchenStatus ? 'online' : 'offline'}`}>
+              <div className="status-icon">
+                {kitchenStatus ? <FaFire size={32} /> : <FaPauseCircle size={32} />}
               </div>
-              <div className="toggle-state">
-                <div className="state-label">Kitchen is</div>
-                <div className="state-value">{kitchenStatus ? 'LIVE & Accepting Orders' : 'OFFLINE'}</div>
+              <div className="status-text">
+                <span className="status-label">Kitchen is</span>
+                <span className="status-value">
+                  {kitchenStatus ? 'LIVE & Accepting Orders' : 'OFFLINE'}
+                </span>
               </div>
             </div>
-            
-            <div className="toggle-switch-large">
-              <label className="switch">
-                <input 
-                  type="checkbox" 
+
+            <div className="toggle-wrapper">
+              <label className="toggle-switch">
+                <input
+                  type="checkbox"
                   checked={kitchenStatus}
                   onChange={handleToggleStatus}
                 />
-                <span className="slider"></span>
+                <span className="toggle-slider"></span>
               </label>
-              <div className="switch-labels">
+              <div className="toggle-labels">
                 <span className={kitchenStatus ? 'active' : ''}>ON</span>
                 <span className={!kitchenStatus ? 'active' : ''}>OFF</span>
               </div>
@@ -105,29 +132,29 @@ const KitchenStatus = () => {
           </div>
 
           {!kitchenStatus && (
-            <div className="offline-message-banner">
-              <i className="fas fa-info-circle"></i>
-              <div className="message-content">
+            <div className="offline-banner">
+              <FaInfoCircle className="banner-icon" size={20} />
+              <div className="banner-content">
                 <strong>Kitchen is currently offline</strong>
                 <p>{offlineMessage}</p>
-                <div className="message-meta">
+                <div className="banner-meta">
                   <span>Reason: {offlineReason}</span>
-                  <span>Started: {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                  <span>Started: {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
               </div>
             </div>
           )}
 
           {tempOffline && (
-            <div className="offline-config-modal">
-              <div className="config-header">
+            <div className="offline-modal">
+              <div className="modal-header">
                 <h3>Set Kitchen Offline</h3>
-                <button className="close-btn" onClick={handleCancelOffline}>
-                  <i className="fas fa-times"></i>
+                <button className="modal-close" onClick={handleCancelOffline}>
+                  <FaTimes size={20} />
                 </button>
               </div>
-              
-              <div className="config-body">
+
+              <div className="modal-body">
                 <div className="form-group">
                   <label>Duration (minutes)</label>
                   <div className="duration-options">
@@ -148,7 +175,7 @@ const KitchenStatus = () => {
                       min="1"
                       value={offlineDuration}
                       onChange={(e) => setOfflineDuration(parseInt(e.target.value) || 1)}
-                      className="form-control"
+                      className="form-input"
                       placeholder="Custom minutes"
                     />
                   </div>
@@ -156,8 +183,8 @@ const KitchenStatus = () => {
 
                 <div className="form-group">
                   <label>Reason for Going Offline</label>
-                  <select 
-                    className="form-control"
+                  <select
+                    className="form-select"
                     value={offlineReason}
                     onChange={(e) => setOfflineReason(e.target.value)}
                   >
@@ -174,7 +201,7 @@ const KitchenStatus = () => {
                 <div className="form-group">
                   <label>Message to Customers (Optional)</label>
                   <textarea
-                    className="form-control"
+                    className="form-textarea"
                     rows="3"
                     value={offlineMessage}
                     onChange={(e) => setOfflineMessage(e.target.value)}
@@ -182,17 +209,17 @@ const KitchenStatus = () => {
                   />
                 </div>
 
-                <div className="warning-message">
-                  <i className="fas fa-exclamation-triangle"></i>
+                <div className="warning-box">
+                  <FaExclamationTriangle size={16} />
                   <span>New orders will not be accepted while kitchen is offline.</span>
                 </div>
               </div>
 
-              <div className="config-footer">
-                <button className="btn btn-outline" onClick={handleCancelOffline}>
+              <div className="modal-footer">
+                <button className="btn-cancel" onClick={handleCancelOffline}>
                   Cancel
                 </button>
-                <button className="btn btn-primary" onClick={handleConfirmOffline}>
+                <button className="btn-confirm" onClick={handleConfirmOffline}>
                   Confirm Offline
                 </button>
               </div>
@@ -201,61 +228,59 @@ const KitchenStatus = () => {
         </div>
       </div>
 
-      {/* Current Metrics */}
+      {/* Metrics */}
       <div className="metrics-grid">
         <div className="metric-card">
-          <div className="metric-icon">
-            <i className="fas fa-clock"></i>
+          <div className="metric-icon" style={{ background: '#eff6ff', color: '#3b82f6' }}>
+            <FaClock size={24} />
           </div>
-          <div className="metric-content">
+          <div className="metric-info">
             <div className="metric-value">{currentMetrics.activeOrders}</div>
             <div className="metric-label">Active Orders</div>
             <div className="metric-trend positive">
-              <i className="fas fa-arrow-up"></i>
+              <FaArrowUp size={12} />
               +3 from yesterday
             </div>
           </div>
         </div>
 
         <div className="metric-card">
-          <div className="metric-icon">
-            <i className="fas fa-hourglass-half"></i>
+          <div className="metric-icon" style={{ background: '#fef3c7', color: '#f59e0b' }}>
+            <FaHourglassHalf size={24} />
           </div>
-          <div className="metric-content">
+          <div className="metric-info">
             <div className="metric-value">{currentMetrics.prepTime}</div>
             <div className="metric-label">Avg. Prep Time</div>
             <div className="metric-trend negative">
-              <i className="fas fa-arrow-up"></i>
+              <FaArrowUp size={12} />
               +2 mins
             </div>
           </div>
         </div>
 
         <div className="metric-card">
-          <div className="metric-icon">
-            <i className="fas fa-check-circle"></i>
+          <div className="metric-icon" style={{ background: '#f0fdf4', color: '#22c55e' }}>
+            <FaCheckCircle size={24} />
           </div>
-          <div className="metric-content">
+          <div className="metric-info">
             <div className="metric-value">{currentMetrics.completionRate}</div>
             <div className="metric-label">On-time Completion</div>
             <div className="metric-trend positive">
-              <i className="fas fa-arrow-up"></i>
+              <FaArrowUp size={12} />
               +5% this week
             </div>
           </div>
         </div>
 
         <div className="metric-card">
-          <div className="metric-icon">
-            <i className="fas fa-tachometer-alt"></i>
+          <div className="metric-icon" style={{ background: '#fef2ef', color: '#E54304' }}>
+            <FaTachometerAlt size={24} />
           </div>
-          <div className="metric-content">
+          <div className="metric-info">
             <div className="metric-value">{currentMetrics.kitchenLoad}</div>
             <div className="metric-label">Kitchen Load</div>
-            <div className="metric-trend">
-              <div className="load-bar">
-                <div className="load-fill" style={{ width: currentMetrics.kitchenLoad }}></div>
-              </div>
+            <div className="load-bar">
+              <div className="load-fill" style={{ width: currentMetrics.kitchenLoad }}></div>
             </div>
           </div>
         </div>
@@ -264,37 +289,33 @@ const KitchenStatus = () => {
       {/* Status History */}
       <div className="history-card">
         <div className="card-header">
-          <h3>Status History (Last 24 Hours)</h3>
-          <button className="btn btn-outline">
-            <i className="fas fa-history"></i>
-            View Full History
+          <h3>Status History</h3>
+          <button className="btn-outline">
+            <FaHistory size={14} />
+            View All
           </button>
         </div>
-        
-        <div className="history-timeline">
+
+        <div className="timeline">
           {statusHistory.map((record, index) => (
             <div key={index} className="timeline-item">
               <div className="timeline-marker">
-                <div className={`marker ${record.status}`}></div>
+                <div className={`marker ${record.status}`}>
+                  {record.status === 'online' ? <FaPlayCircle size={12} /> : <FaStopCircle size={12} />}
+                </div>
                 {index < statusHistory.length - 1 && <div className="timeline-line"></div>}
               </div>
               <div className="timeline-content">
                 <div className="timeline-header">
-                  <div className="time">{record.time}</div>
-                  <div className={`status-badge ${record.status}`}>
+                  <span className="timeline-time">{record.time}</span>
+                  <span className={`status-tag ${record.status}`}>
                     {record.status === 'online' ? 'Online' : 'Offline'}
-                  </div>
+                  </span>
                 </div>
                 <div className="timeline-details">
-                  <div className="duration">
-                    <i className="fas fa-clock"></i>
-                    Duration: {record.duration}
-                  </div>
+                  <span><FaClock size={12} /> Duration: {record.duration}</span>
                   {record.reason && (
-                    <div className="reason">
-                      <i className="fas fa-info-circle"></i>
-                      Reason: {record.reason}
-                    </div>
+                    <span><FaInfoCircle size={12} /> Reason: {record.reason}</span>
                   )}
                 </div>
               </div>
@@ -304,24 +325,34 @@ const KitchenStatus = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="quick-actions-card">
-        <h3>Quick Actions</h3>
-        <div className="actions-grid">
-          <button className="action-btn">
-            <i className="fas fa-bell"></i>
+      <div className="quick-actions">
+        <div className="quick-actions-header">
+          <h3>Quick Actions</h3>
+        </div>
+        <div className="quick-actions-grid">
+          <button className="quick-action-btn">
+            <div className="quick-action-icon" style={{ background: '#eff6ff', color: '#3b82f6' }}>
+              <FaBell size={20} />
+            </div>
             <span>Notify Staff</span>
           </button>
-          <button className="action-btn">
-            <i className="fas fa-print"></i>
-            <span>Print Kitchen Report</span>
+          <button className="quick-action-btn">
+            <div className="quick-action-icon" style={{ background: '#f0fdf4', color: '#22c55e' }}>
+              <FaPrint size={20} />
+            </div>
+            <span>Print Report</span>
           </button>
-          <button className="action-btn">
-            <i className="fas fa-calendar"></i>
-            <span>Schedule Offline Time</span>
+          <button className="quick-action-btn">
+            <div className="quick-action-icon" style={{ background: '#fef3c7', color: '#f59e0b' }}>
+              <FaCalendar size={20} />
+            </div>
+            <span>Schedule Offline</span>
           </button>
-          <button className="action-btn">
-            <i className="fas fa-cog"></i>
-            <span>Auto-Offline Settings</span>
+          <button className="quick-action-btn">
+            <div className="quick-action-icon" style={{ background: '#fef2ef', color: '#E54304' }}>
+              <FaCog size={20} />
+            </div>
+            <span>Settings</span>
           </button>
         </div>
       </div>

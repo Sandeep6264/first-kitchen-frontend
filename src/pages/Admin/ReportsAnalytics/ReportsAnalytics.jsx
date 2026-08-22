@@ -1,5 +1,27 @@
-// pages/ReportsAnalytics.jsx
 import React, { useState } from 'react';
+import {
+  FaDownload,
+  FaRedo,
+  FaChartBar,
+  FaEye,
+  FaArrowUp,
+  FaArrowDown,
+  FaCalendarAlt,
+  FaClock,
+  FaShare,
+  FaPrint,
+  FaChartLine,
+  FaUtensils,
+  FaShoppingBag,
+  FaUsers,
+  FaPercent,
+  FaStar,
+  FaFire,
+  FaSearch,
+  FaFilter,
+  FaFileExport,
+  FaEye as FaView
+} from 'react-icons/fa';
 import './ReportsAnalytics.css';
 
 const ReportsAnalytics = () => {
@@ -10,12 +32,12 @@ const ReportsAnalytics = () => {
   const [exportFormat, setExportFormat] = useState('csv');
 
   const quickStats = [
-    { label: 'Total Revenue', value: '$45,320.80', change: '+15.2%', trend: 'up' },
-    { label: 'Total Orders', value: '1,395', change: '+8.5%', trend: 'up' },
-    { label: 'Avg. Order Value', value: '$32.45', change: '+4.2%', trend: 'up' },
-    { label: 'New Customers', value: '142', change: '+12.7%', trend: 'up' },
-    { label: 'Customer Retention', value: '84.5%', change: '+2.3%', trend: 'up' },
-    { label: 'Cancellation Rate', value: '5.2%', change: '-1.1%', trend: 'down' }
+    { label: 'Total Revenue', value: '$45,320.80', change: '+15.2%', trend: 'up', icon: FaChartLine, color: '#22c55e' },
+    { label: 'Total Orders', value: '1,395', change: '+8.5%', trend: 'up', icon: FaShoppingBag, color: '#3b82f6' },
+    { label: 'Avg. Order Value', value: '$32.45', change: '+4.2%', trend: 'up', icon: FaStar, color: '#8b5cf6' },
+    { label: 'New Customers', value: '142', change: '+12.7%', trend: 'up', icon: FaUsers, color: '#E54304' },
+    { label: 'Customer Retention', value: '84.5%', change: '+2.3%', trend: 'up', icon: FaPercent, color: '#f59e0b' },
+    { label: 'Cancellation Rate', value: '5.2%', change: '-1.1%', trend: 'down', icon: FaFire, color: '#ef4444' }
   ];
 
   const salesByCategory = [
@@ -38,43 +60,45 @@ const ReportsAnalytics = () => {
   const getMaxRevenue = () => Math.max(...salesByCategory.map(item => item.revenue));
 
   return (
-    <div className="reports-analytics-screen">
-      <div className="screen-header">
-        <h1>Reports & Analytics</h1>
-        <div className="header-actions">
-          <button className="btn btn-primary" onClick={() => {/* Export logic */}}>
-            <i className="fas fa-download"></i>
+    <div className="reports-analytics">
+      {/* Header */}
+      <div className="page-header">
+        <div className="header-left">
+          <h1>Reports & Analytics</h1>
+          <p>Gain insights into your business performance</p>
+        </div>
+        <div className="header-right">
+          <button className="btn-primary">
+            <FaDownload size={14} />
             Export Report
           </button>
-          <div className="export-format">
-            <select 
-              className="form-control"
-              value={exportFormat}
-              onChange={(e) => setExportFormat(e.target.value)}
-            >
-              <option value="csv">CSV</option>
-              <option value="pdf">PDF</option>
-              <option value="excel">Excel</option>
-            </select>
-          </div>
+          <select
+            className="export-select"
+            value={exportFormat}
+            onChange={(e) => setExportFormat(e.target.value)}
+          >
+            <option value="csv">CSV</option>
+            <option value="pdf">PDF</option>
+            <option value="excel">Excel</option>
+          </select>
         </div>
       </div>
 
-      {/* Filters Section */}
+      {/* Filters */}
       <div className="filters-card">
         <div className="filters-header">
           <h3>Report Filters</h3>
-          <button className="btn btn-outline">
-            <i className="fas fa-redo"></i>
+          <button className="btn-outline">
+            <FaRedo size={14} />
             Reset Filters
           </button>
         </div>
-        
+
         <div className="filters-grid">
           <div className="filter-group">
             <label>Date Range</label>
-            <select 
-              className="form-control"
+            <select
+              className="filter-select"
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
             >
@@ -95,7 +119,7 @@ const ReportsAnalytics = () => {
                 <label>Start Date</label>
                 <input
                   type="date"
-                  className="form-control"
+                  className="filter-input"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
                 />
@@ -104,7 +128,7 @@ const ReportsAnalytics = () => {
                 <label>End Date</label>
                 <input
                   type="date"
-                  className="form-control"
+                  className="filter-input"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                 />
@@ -114,8 +138,8 @@ const ReportsAnalytics = () => {
 
           <div className="filter-group">
             <label>Report Type</label>
-            <select 
-              className="form-control"
+            <select
+              className="filter-select"
               value={reportType}
               onChange={(e) => setReportType(e.target.value)}
             >
@@ -128,8 +152,8 @@ const ReportsAnalytics = () => {
           </div>
 
           <div className="filter-group">
-            <label>Category Filter</label>
-            <select className="form-control">
+            <label>Category</label>
+            <select className="filter-select">
               <option value="">All Categories</option>
               <option value="burgers">Burgers</option>
               <option value="pizza">Pizza</option>
@@ -142,12 +166,12 @@ const ReportsAnalytics = () => {
         </div>
 
         <div className="filters-actions">
-          <button className="btn btn-primary">
-            <i className="fas fa-chart-bar"></i>
+          <button className="btn-primary">
+            <FaChartBar size={14} />
             Generate Report
           </button>
-          <button className="btn btn-outline">
-            <i className="fas fa-eye"></i>
+          <button className="btn-outline">
+            <FaEye size={14} />
             Preview Report
           </button>
         </div>
@@ -155,21 +179,29 @@ const ReportsAnalytics = () => {
 
       {/* Quick Stats */}
       <div className="quick-stats-grid">
-        {quickStats.map((stat, index) => (
-          <div key={index} className="quick-stat-card">
-            <div className="stat-label">{stat.label}</div>
-            <div className="stat-value">{stat.value}</div>
-            <div className={`stat-change ${stat.trend === 'up' ? 'positive' : 'negative'}`}>
-              <i className={`fas fa-arrow-${stat.trend}`}></i>
-              {stat.change}
+        {quickStats.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <div key={index} className="quick-stat-card">
+              <div className="stat-top">
+                <div className="stat-icon" style={{ background: `${stat.color}15`, color: stat.color }}>
+                  <Icon size={18} />
+                </div>
+                <div className={`stat-change ${stat.trend === 'up' ? 'positive' : 'negative'}`}>
+                  {stat.trend === 'up' ? <FaArrowUp size={10} /> : <FaArrowDown size={10} />}
+                  {stat.change}
+                </div>
+              </div>
+              <div className="stat-value">{stat.value}</div>
+              <div className="stat-label">{stat.label}</div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Charts Section */}
       <div className="charts-section">
-        {/* Sales by Category Chart */}
+        {/* Sales by Category */}
         <div className="chart-card wide">
           <div className="card-header">
             <h3>Sales by Category</h3>
@@ -196,25 +228,23 @@ const ReportsAnalytics = () => {
               {salesByCategory.map((item, index) => {
                 const revenueHeight = (item.revenue / getMaxRevenue()) * 100;
                 const ordersHeight = (item.orders / Math.max(...salesByCategory.map(i => i.orders))) * 80;
-                
+
                 return (
                   <div key={index} className="bar-group">
                     <div className="bar-wrapper">
-                      <div 
-                        className="bar revenue-bar" 
+                      <div
+                        className="bar revenue-bar"
                         style={{ height: `${revenueHeight}%` }}
-                        title={`Revenue: $${item.revenue.toFixed(2)}`}
                       >
                         <div className="bar-value">${(item.revenue / 1000).toFixed(1)}k</div>
                       </div>
-                      <div 
-                        className="bar orders-bar" 
+                      <div
+                        className="bar orders-bar"
                         style={{ height: `${ordersHeight}%` }}
-                        title={`Orders: ${item.orders}`}
                       ></div>
                     </div>
                     <div className="bar-label">{item.category}</div>
-                    <div className="bar-change">{item.change}</div>
+                    <div className="bar-change positive">{item.change}</div>
                   </div>
                 );
               })}
@@ -262,17 +292,17 @@ const ReportsAnalytics = () => {
       <div className="top-items-card">
         <div className="card-header">
           <h3>Top Selling Items</h3>
-          <button className="btn btn-outline">
-            View All Items
+          <button className="btn-outline">
+            View All
           </button>
         </div>
-        <div className="items-table">
-          <table className="data-table">
+        <div className="table-container">
+          <table className="items-table">
             <thead>
               <tr>
                 <th>Item</th>
                 <th>Category</th>
-                <th>Total Sales</th>
+                <th>Sales</th>
                 <th>Revenue</th>
                 <th>Trend</th>
                 <th>Action</th>
@@ -283,31 +313,29 @@ const ReportsAnalytics = () => {
                 <tr key={index}>
                   <td>
                     <div className="item-info">
-                      <div className="item-rank">{index + 1}</div>
-                      <div className="item-details">
+                      <div className={`item-rank ${index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : ''}`}>
+                        {index + 1}
+                      </div>
+                      <div>
                         <div className="item-name">{item.name}</div>
-                        <div className="item-id">ID: {index + 1001}</div>
+                        <div className="item-id">#{index + 1001}</div>
                       </div>
                     </div>
                   </td>
                   <td>
                     <span className="category-tag">{item.category}</span>
                   </td>
-                  <td>
-                    <div className="sales-count">{item.sales} sales</div>
-                  </td>
-                  <td>
-                    <div className="revenue-amount">${item.revenue.toFixed(2)}</div>
-                  </td>
+                  <td className="sales-count">{item.sales}</td>
+                  <td className="revenue-amount">${item.revenue.toFixed(2)}</td>
                   <td>
                     <div className="trend-indicator positive">
-                      <i className="fas fa-arrow-up"></i>
-                      <span>+12.5%</span>
+                      <FaArrowUp size={10} />
+                      +12.5%
                     </div>
                   </td>
                   <td>
-                    <button className="btn-icon">
-                      <i className="fas fa-chart-line"></i>
+                    <button className="action-btn">
+                      <FaChartLine size={14} />
                     </button>
                   </td>
                 </tr>
@@ -323,12 +351,12 @@ const ReportsAnalytics = () => {
           <h3>Report Summary</h3>
           <div className="report-info">
             <span className="info-item">
-              <i className="fas fa-calendar"></i>
-              Date Range: {startDate} to {endDate}
+              <FaCalendarAlt size={12} />
+              {startDate} to {endDate}
             </span>
             <span className="info-item">
-              <i className="fas fa-clock"></i>
-              Generated: {new Date().toLocaleString()}
+              <FaClock size={12} />
+              {new Date().toLocaleString()}
             </span>
           </div>
         </div>
@@ -350,22 +378,22 @@ const ReportsAnalytics = () => {
               <div className="stat-change positive">+4.2% vs previous period</div>
             </div>
             <div className="summary-stat">
-              <div className="stat-label">Best Performing Category</div>
-              <div className="stat-value">Desserts</div>
+              <div className="stat-label">Best Category</div>
+              <div className="stat-value" style={{ color: '#f59e0b' }}>Desserts</div>
               <div className="stat-change positive">+22.3% growth</div>
             </div>
           </div>
           <div className="summary-actions">
-            <button className="btn btn-primary">
-              <i className="fas fa-download"></i>
+            <button className="btn-primary">
+              <FaDownload size={14} />
               Download Full Report
             </button>
-            <button className="btn btn-outline">
-              <i className="fas fa-share"></i>
+            <button className="btn-outline">
+              <FaShare size={14} />
               Share Report
             </button>
-            <button className="btn btn-outline">
-              <i className="fas fa-print"></i>
+            <button className="btn-outline">
+              <FaPrint size={14} />
               Print Report
             </button>
           </div>

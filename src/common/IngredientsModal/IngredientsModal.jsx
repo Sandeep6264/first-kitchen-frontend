@@ -1,4 +1,4 @@
-// src/components/IngredientsModal.jsx (updated structure)
+
 import React from 'react';
 import { FiX, FiShoppingCart, FiPlus, FiMinus, FiTag, FiDollarSign } from 'react-icons/fi';
 import './IngredientsModal.css';
@@ -15,13 +15,11 @@ const IngredientsModal = ({
 
     const qty = getQty(foodItem.itemId);
 
-    // Extract ingredients from the food item data
     const getIngredients = () => {
-        if (foodItem.ingredients && Array.isArray(foodItem.ingredients) && foodItem.ingredients.length > 0) {
-            return foodItem.ingredients;
+        if (foodItem.itemIngredients && Array.isArray(foodItem.itemIngredients) && foodItem.itemIngredients.length > 0) {
+            return foodItem.itemIngredients;
         }
 
-        // Fallback to default ingredients based on category
         const defaultIngredients = {
             'Non-Veg': ['Fresh Chicken', 'Premium Spices', 'Yogurt Marinade', 'Fresh Herbs', 'Special Masala', 'Ginger-Garlic Paste'],
             'Biryani': ['Basmati Rice', 'Premium Meat/Vegetables', 'Biryani Masala', 'Saffron', 'Mint Leaves', 'Fried Onions', 'Ghee'],
@@ -78,11 +76,10 @@ const IngredientsModal = ({
                         </span>
 
                         <span className="food-badge price">
-                            
-                           ₹ {foodItem.itemPrice}
+
+                            ₹ {foodItem.itemPrice}
                         </span>
 
-                        {/* name – bottom overlay */}
                         <div className="food-name">
                             {foodItem.itemName}
                         </div>
@@ -122,7 +119,6 @@ const IngredientsModal = ({
                     </div>
                 </div>
 
-                {/* Footer */}
                 <div className="modal-footer">
                     {qty === 0 ? (
                         <button
