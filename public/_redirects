@@ -1,1 +1,2 @@
+/firstKitchen/assets/* /assets/:splat 200
 /firstKitchen/* /index.html 200
